@@ -15,6 +15,8 @@
 int		ft_mouse_release(int buttom, int x, int y, t_mlx *mlx)
 {
 	if (buttom == 1 && INSIDE(x, y))
+	{
 		mlx->st_mouse.is_pressed = 0;
+	}
 	return (0);
 }

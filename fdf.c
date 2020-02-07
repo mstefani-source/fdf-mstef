@@ -21,19 +21,14 @@ int		key_win1(int key, t_mlx *mlx)
 		exit(0);
 	if (key == 124)
 		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->sx++, mlx->sy, 0xFF00FF);
-	if (key == 126)
+	else if (key == 126)
 		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->sx, mlx->sy--, 0xFF00FF);
-	if (key == 125)
+	else if (key == 125)
 		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->sx, mlx->sy++, 0xFF00FF);
-	if (key == 123)
+	else if (key == 123)
 		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->sx--, mlx->sy, 0xFF00FF);
-	return (0);
-}
-
-int		mouse_pressed(int buttom, int x, int y, t_mlx *mlx)
-{
-	if (buttom == 1 && INSIDE(x, y))
-		mlx->st_mouse.is_pressed = 1;
+	else if (key == 12)
+		mlx_clear_window (mlx->mlx_ptr, mlx->win_ptr);
 	return (0);
 }
 
@@ -47,7 +42,7 @@ int		main(int argc, char **argv)
 	mlx->sx = WX / 2;
 	mlx->sy = WY / 2;
 	ft_veryfy(mlx, argv[1]);
-	mlx_hook(mlx->win_ptr, 4, 0, mouse_pressed, mlx);
+	mlx_hook(mlx->win_ptr, 4, 0, ft_mouse_pressed, mlx);
 	mlx_hook(mlx->win_ptr, 5, 0, ft_mouse_release, mlx);
 	mlx_hook(mlx->win_ptr, 6, 0, ft_mouse_move, mlx);
 	mlx_key_hook(mlx->win_ptr, key_win1, mlx);

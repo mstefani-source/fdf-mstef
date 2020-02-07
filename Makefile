@@ -18,21 +18,19 @@ SRC = fdf.c \
 		ft_veryfy.c \
 		ft_mouse_move.c \
 		ft_mouse_release.c \
-		ft_mouse_pressed.c
+		ft_mouse_pressed.c \
+		ft_plot_line.c
 
 LIBOBJ=$(SRC:.c=.o)
 
 LIBNAME = ./libft/libft.a
-##MINILIBS = ./minilibx_macos/libmlx.a
 
 CFLAGS = -Wall -Werror -Wextra 
 GLFLAGS = -lmlx -framework OpenGL -framework AppKit
 
 $(NAME): $(LIBOBJ)
-		make -C ./libft 
-##		make -C ./minilibx_macos 
-		gcc $(CFLAGS) $(LIBOBJ) $(LIBNAME) $(GLFLAGS) -o $(NAME) 
-##		$(HEADERS)
+		make -C ./libft
+		gcc $(CFLAGS) $(LIBOBJ) $(LIBNAME) $(GLFLAGS) -o $(NAME)
 
 %.o:%.c
 	gcc $(CFLAGS) $< -c -o $@
@@ -42,12 +40,9 @@ all: $(NAME)
 clean:
 	make -C ./libft clean
 	rm -rf $(LIBOBJ)
-##	make -C ./minilibx_macos clean
-##	rm -rf $(MINILIBS)
 
 fclean: clean
 	make -C ./libft fclean
 	-rm -f $(NAME)
-##	make -C ./minilibx_macos clean
 
 re: fclean all

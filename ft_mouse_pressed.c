@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mouse_move.c                                    :+:      :+:    :+:   */
+/*   ft_mouse_pressed.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/05 17:16:13 by mstefani          #+#    #+#             */
-/*   Updated: 2020/02/05 17:16:31 by mstefani         ###   ########.fr       */
+/*   Created: 2020/02/05 17:26:16 by mstefani          #+#    #+#             */
+/*   Updated: 2020/02/05 17:40:51 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		ft_mouse_move(int x, int y, t_mlx *mlx)
+int		ft_mouse_pressed(int buttom, int x, int y, t_mlx *mlx)
 {
-	if (mlx->st_mouse.is_pressed && INSIDE(x, y))
+	if (buttom == 1 && INSIDE(x, y))
 	{
-		ft_plot_line(x, y, mlx);
-		mlx->sx = x;
-		mlx->sy = y;
+		mlx->st_mouse.is_pressed = 1;
+		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->sx, mlx->sy, BLUE);
 	}
-	mlx->sx = x;
-	mlx->sy = y;
 	return (0);
 }
