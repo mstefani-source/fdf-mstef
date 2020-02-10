@@ -1,0 +1,6 @@
+/cmake-build-debug/
+/CMakeLists.txt
+*.o
+*.swp
+/fdf
+/.gitignore

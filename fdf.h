@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "libft.h"
+# include "gnl/get_next_line.h"
 # define WX 1024
 # define WY 768
 # define BLUE 0x00FFFF
@@ -26,13 +27,6 @@
 
 typedef struct	s_mouse
 {
-	double		prev_x;
-	double		prev_y;
-	double		x;
-	double		y;
-	double		x_ratio;
-	double		y_ratio;
-	int			freeze;
 	int			is_pressed;
 }				t_mouse;
 
@@ -41,6 +35,9 @@ typedef struct	s_mlx
 	int			fd;
 	void		*mlx_ptr;
 	void		*win_ptr;
+	int 		**map;
+	int 		mapsx;
+	int 		mapsy;
 	int			sx;
 	int			sy;
 	int			color;
@@ -52,4 +49,7 @@ int				ft_mouse_move(int x, int y, t_mlx *mlx);
 int				ft_mouse_release(int buttom, int x, int y, t_mlx *mlx);
 int				ft_mouse_pressed(int buttom, int x, int y, t_mlx *mlx);
 int				ft_plot_line(int x1, int y1, t_mlx *mlx);
+int				ft_discover_map(t_mlx *mlx);
+void			ft_fillmap(t_mlx *mlx);
+int				ft_calc_digits(char *line, t_mlx *mlx);
 #endif

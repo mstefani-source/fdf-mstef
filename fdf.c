@@ -28,7 +28,7 @@ int		key_win1(int key, t_mlx *mlx)
 	else if (key == 123)
 		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->sx--, mlx->sy, 0xFF00FF);
 	else if (key == 12)
-		mlx_clear_window (mlx->mlx_ptr, mlx->win_ptr);
+		mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
 	return (0);
 }
 
@@ -42,6 +42,9 @@ int		main(int argc, char **argv)
 	mlx->sx = WX / 2;
 	mlx->sy = WY / 2;
 	ft_veryfy(mlx, argv[1]);
+	ft_discover_map(mlx);
+	mlx->fd = open(argv[1], O_RDONLY);
+	ft_fillmap(mlx);
 	mlx_hook(mlx->win_ptr, 4, 0, ft_mouse_pressed, mlx);
 	mlx_hook(mlx->win_ptr, 5, 0, ft_mouse_release, mlx);
 	mlx_hook(mlx->win_ptr, 6, 0, ft_mouse_move, mlx);
