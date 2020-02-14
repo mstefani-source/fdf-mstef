@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calc_digits.c                                   :+:      :+:    :+:   */
+/*   ft_fill_digits.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,27 +12,34 @@
 
 #include "fdf.h"
 
-char	*ft_goto_next_digit(char *line)
+char	*ft_gnd(char *line)
 {
 	while (!ft_isdigit(*line) && *line != '\0')
 		line++;
 	return (line);
 }
-char	*ft_goto_next_space(char *line)
+char	*ft_gns(char *line)
 {
 	while (*line != ' ' && *line != '\0')
 		line++;
 	return  (line);
 }
 
-int		ft_calc_digits(char *line, t_mlx *mlx)
+int		ft_getcolor(char *line)
+{
+	
+}
+
+int		ft_fill_digits(char *line, t_mlx *mlx, int index)
 {
 	int res;
 	int num;
+	int i;
 
+	i = 0;
 	res = 0;
 	num = 1;
-	line = ft_goto_next_digit(line);
+	line = ft_gnd(line);
 	while (*line)
 	{
 		if (*line >= '0' && *line <= '9')
@@ -43,15 +50,18 @@ int		ft_calc_digits(char *line, t_mlx *mlx)
 		}
 		else if (*line == ' ')
 		{
-			printf("%d ", res);
-			line = ft_goto_next_digit(line);
+		    mlx->dots[index][i++].z = res;
+			line = ft_gnd(line);
 			res = 0;
 			num++;
 		}
 		else if (*line == ',')
-			line = ft_goto_next_space(line);
+		{
+			mlx->dots[index][i].color = ft_getcolor(line);
+			line = ft_gns(line);
+		}
 	}
 	mlx->mapsx = num;
-	printf("%d \n", res);
+	mlx->dots[index][i++].z = res;
 	return (num);
 }

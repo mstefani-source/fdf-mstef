@@ -18,15 +18,19 @@ int		key_win1(int key, t_mlx *mlx)
 	ft_putnbr(key);
 	write(1, "\n", 1);
 	if (key == 53)
+	{
+		close(mlx->fd);
+		free(mlx);
 		exit(0);
+	}
 	if (key == 124)
-		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->sx++, mlx->sy, 0xFF00FF);
+		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->dot.x++, mlx->dot.y, mlx->dot.color);
 	else if (key == 126)
-		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->sx, mlx->sy--, 0xFF00FF);
+		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->dot.x, mlx->dot.y--, mlx->dot.color);
 	else if (key == 125)
-		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->sx, mlx->sy++, 0xFF00FF);
+		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->dot.x, mlx->dot.y++, mlx->dot.color);
 	else if (key == 123)
-		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->sx--, mlx->sy, 0xFF00FF);
+		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->dot.x--, mlx->dot.y, mlx->dot.color);
 	else if (key == 12)
 		mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
 	return (0);
@@ -35,16 +39,31 @@ int		key_win1(int key, t_mlx *mlx)
 int		main(int argc, char **argv)
 {
 	t_mlx	*mlx;
+	char	*line;
+	int     i = 0;
+	int     num;
 
 	if (argc != 2)
 		return (0);
 	mlx = malloc(sizeof(t_mlx));
-	mlx->sx = WX / 2;
-	mlx->sy = WY / 2;
-	ft_veryfy(mlx, argv[1]);
+	mlx->dot.color = RED;
+	if ((mlx->fd = open(argv[1], O_RDONLY)) < 0)
+	{
+		write(1, "Error reading file\n", 19);
+		exit(0);
+	}
 	ft_discover_map(mlx);
-	mlx->fd = open(argv[1], O_RDONLY);
-	ft_fillmap(mlx);
+	close(mlx->fd);
+	ft_open_window(mlx, argv[1]);
+
+	mlx->dots = (t_dot **) malloc(sizeof(t_dot *) * mlx->mapsy);
+	while (get_next_line(mlx->fd, &line) != 0)
+	{
+		mlx->dots[i] = (t_dot *) malloc(sizeof(t_dot) * mlx->mapsx);
+        num = ft_fill_digits(line, mlx, i);
+        i++;
+		printf("[y] = %d [x] = %d\n", i, num);
+	}
 	mlx_hook(mlx->win_ptr, 4, 0, ft_mouse_pressed, mlx);
 	mlx_hook(mlx->win_ptr, 5, 0, ft_mouse_release, mlx);
 	mlx_hook(mlx->win_ptr, 6, 0, ft_mouse_move, mlx);
