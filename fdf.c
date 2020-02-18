@@ -36,12 +36,31 @@ int		key_win1(int key, t_mlx *mlx)
 	return (0);
 }
 
+void	ft_print_mlx (t_mlx *mlx) {
+	int x = 0;
+	int y = 0;
+
+	while (y != mlx->mapsy)
+	{
+		while (x != mlx->mapsx)
+		{
+/*			printf("%d|", mlx->dots[y][x].x);
+			printf("%d|", mlx->dots[y][x].y);*/
+			printf("%d", mlx->dots[y][x].z);
+			printf(",%d " , mlx->dots[y][x].color);
+			x++;
+		}
+		printf("\n");
+		x = 0;
+		y++;
+	}
+}
+
 int		main(int argc, char **argv)
 {
 	t_mlx	*mlx;
 	char	*line;
-	int     i = 0;
-	int     num;
+	int     y = 0;
 
 	if (argc != 2)
 		return (0);
@@ -52,18 +71,18 @@ int		main(int argc, char **argv)
 		write(1, "Error reading file\n", 19);
 		exit(0);
 	}
-	ft_discover_map(mlx);
+	ft_discover_map(mlx);									/* считывем карту, узнаём сколько строк и сколько колонок*/
 	close(mlx->fd);
-	ft_open_window(mlx, argv[1]);
+	ft_open_window(mlx, argv[1]);							   /* открываем снова файл и инициализируем окно*/
 
-	mlx->dots = (t_dot **) malloc(sizeof(t_dot *) * mlx->mapsy);
-	while (get_next_line(mlx->fd, &line) != 0)
+	mlx->dots = (t_dot **) malloc(sizeof(t_dot *) * mlx->mapsy);  /* маллочим массив интов*/
+	while (get_next_line(mlx->fd, &line) != 0)                    /* заполняем массив координатами и значениями цвета */
 	{
-		mlx->dots[i] = (t_dot *) malloc(sizeof(t_dot) * mlx->mapsx);
-        num = ft_fill_digits(line, mlx, i);
-        i++;
-		printf("[y] = %d [x] = %d\n", i, num);
+		mlx->dots[y] = (t_dot *) malloc(sizeof(t_dot) * mlx->mapsx);
+        ft_fill_digits(line, mlx, y);									/* вот тут ... */
+        y++;
 	}
+	ft_print_mlx(mlx);           										/* тупо проверим как заполнился массив */
 	mlx_hook(mlx->win_ptr, 4, 0, ft_mouse_pressed, mlx);
 	mlx_hook(mlx->win_ptr, 5, 0, ft_mouse_release, mlx);
 	mlx_hook(mlx->win_ptr, 6, 0, ft_mouse_move, mlx);

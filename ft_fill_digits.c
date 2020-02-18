@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-char	*ft_gnd(char *line)
+char	*ft_gonxtd(char *line)
 {
 	while (!ft_isdigit(*line) && *line != '\0')
 		line++;
@@ -22,26 +22,38 @@ char	*ft_gns(char *line)
 {
 	while (*line != ' ' && *line != '\0')
 		line++;
-	return  (line);
+	return (line);
 }
 
-int		ft_getcolor(char *line)
+int		ft_readcolor(char *line)
 {
-	
+	char hexc[6];
+	int i = 0;
+	int color = 0;
+
+	line = line + 3;
+	while (*line != ' ' && *line != '\0')
+	{
+		hexc[i++] = *line;
+		line++;
+	}
+	hexc[i] = '\0';
+	color = ft_atoi_base(hexc, 16);
+	return (color);
 }
 
-int		ft_fill_digits(char *line, t_mlx *mlx, int index)
+int		ft_fill_digits(char *line, t_mlx *mlx, int y)
 {
 	int res;
-	int num;
-	int i;
+	int x;
 
-	i = 0;
+	x = 0;
 	res = 0;
-	num = 1;
-	line = ft_gnd(line);
+	line = ft_gonxtd(line);
 	while (*line)
 	{
+		mlx->dots[y][x].x = x * 10;
+		mlx->dots[y][x].y = y * 10;
 		if (*line >= '0' && *line <= '9')
 		{
 			res *= 10;
@@ -50,18 +62,16 @@ int		ft_fill_digits(char *line, t_mlx *mlx, int index)
 		}
 		else if (*line == ' ')
 		{
-		    mlx->dots[index][i++].z = res;
-			line = ft_gnd(line);
+		    mlx->dots[y][x].z = res;
+			line = ft_gonxtd(line);
 			res = 0;
-			num++;
+			x++;
 		}
 		else if (*line == ',')
 		{
-			mlx->dots[index][i].color = ft_getcolor(line);
+			mlx->dots[y][x].color = ft_readcolor(line);
 			line = ft_gns(line);
 		}
 	}
-	mlx->mapsx = num;
-	mlx->dots[index][i++].z = res;
-	return (num);
+	return (0);
 }

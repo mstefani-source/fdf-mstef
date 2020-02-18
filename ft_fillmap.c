@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "fdf.h"
 
 void	ft_fillmap(t_mlx *mlx)
 {
@@ -18,10 +18,10 @@ void	ft_fillmap(t_mlx *mlx)
 	char *line;
 
 	res = 0;
-	mlx->map = (int **) malloc(sizeof(int *) * mlx->mapsy);
+	mlx->dots = (t_dot **) malloc(sizeof(t_dot *) * mlx->mapsy);
 	while (res < mlx->mapsy)
 	{
-		mlx->map[res] = (int *) (sizeof(int) * mlx->mapsx);
+		mlx->dots[res] = (t_dot *) (sizeof(t_dot) * mlx->mapsx);
 		while (get_next_line(mlx->fd, &line) != 0)
 		{
 			ft_calc_digits(line, mlx);
@@ -29,4 +29,5 @@ void	ft_fillmap(t_mlx *mlx)
 		}
 		res++;
 	}
+	printf("map is filled\n");
 }

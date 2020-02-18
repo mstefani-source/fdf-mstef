@@ -17,10 +17,10 @@ int		ft_mouse_move(int x, int y, t_mlx *mlx)
 	if (mlx->st_mouse.is_pressed && INSIDE(x, y))
 	{
 		ft_plot_line(x, y, mlx);
-		mlx->sx = x;
-		mlx->sy = y;
+		mlx->dot.x = x;
+		mlx->dot.y = y;
 	}
-	mlx->sx = x;
-	mlx->sy = y;
+	mlx->dot.x = x;
+	mlx->dot.y = y;
 	return (0);
 }

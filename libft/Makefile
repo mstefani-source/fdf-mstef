@@ -6,7 +6,7 @@
 #    By: mstefani <mstefani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/09 16:30:02 by mstefani          #+#    #+#              #
-#    Updated: 2019/11/28 17:05:49 by mstefani         ###   ########.fr        #
+#    Updated: 2020/02/12 18:45:17 by mstefani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = libft.a
 HEADERS = includes/
 
 SRC = ft_atoi.c \
+	  	ft_atoi_base.c \
 		ft_bzero.c \
 		ft_factorial.c \
 		ft_isalnum.c \

@@ -15,12 +15,14 @@ NAME = fdf
 HEADERS	=-I fdf.h
 
 SRC = fdf.c \
-		ft_veryfy.c \
 		ft_mouse_move.c \
 		ft_mouse_release.c \
 		ft_mouse_pressed.c \
 		ft_plot_line.c \
 		ft_discover_map.c \
+		ft_open_window.c \
+		ft_calc_digits.c \
+		ft_fill_digits.c \
 		gnl/get_next_line.c
 
 LIBOBJ=$(SRC:.c=.o)

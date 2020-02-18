@@ -43,7 +43,6 @@ int		ft_calc_digits(char *line, t_mlx *mlx)
 		}
 		else if (*line == ' ')
 		{
-			printf("%d ", res);
 			line = ft_goto_next_digit(line);
 			res = 0;
 			num++;
@@ -52,6 +51,5 @@ int		ft_calc_digits(char *line, t_mlx *mlx)
 			line = ft_goto_next_space(line);
 	}
 	mlx->mapsx = num;
-	printf("%d \n", res);
 	return (num);
 }

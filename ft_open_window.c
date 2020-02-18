@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-void	ft_veryfy(t_mlx *mlx, char *filename)
+void	ft_open_window(t_mlx *mlx, char *filename)
 {
 	if ((mlx->fd = open(filename, O_RDONLY)) < 0)
 	{
