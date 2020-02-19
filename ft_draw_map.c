@@ -12,12 +12,28 @@
 
 #include "fdf.h"
 
-void	ft_draw_map(t_dot *mlx)
+void	ft_draw_map(t_mlx *mlx)
 {
 	int dx;
 	int dy;
 	int err;
 	int e2;
+	int x = 0;
+	int y = 0;
+	
+	while (y != mlx->mapsy)
+	{
+		while (x != mlx->mapsx)
+		{
+							 y	x      y  x+1
+			рисуем линию от [0][0] к  [0] [1]
+							 y  x	  y+1  x
+			рисуем линию от [0][0] к  [1] [0]
+			x++;
+		}
+		x = 0;
+		y++;
+	}
 	
 	dx = ft_abs(x2 - mlx->dot.x);
 	dy = ft_abs(y2 - mlx->dot.y);

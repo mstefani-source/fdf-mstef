@@ -84,7 +84,7 @@ int		main(int argc, char **argv)
         y++;
 	}
 	ft_print_mlx(mlx);           										/* тупо проверим как и чем заполнился массив */
-	ft_draw_map(mlx);								/* попробуем нарисовать */
+	ft_draw_map(mlx);													/* попробуем нарисовать */
 	mlx_hook(mlx->win_ptr, 4, 0, ft_mouse_pressed, mlx);
 	mlx_hook(mlx->win_ptr, 5, 0, ft_mouse_release, mlx);
 	mlx_hook(mlx->win_ptr, 6, 0, ft_mouse_move, mlx);
