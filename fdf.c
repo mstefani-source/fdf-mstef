@@ -44,8 +44,8 @@ void	ft_print_mlx (t_mlx *mlx) {
 	{
 		while (x != mlx->mapsx)
 		{
-/*			printf("%d|", mlx->dots[y][x].x);
-			printf("%d|", mlx->dots[y][x].y);*/
+			printf("%d|", mlx->dots[y][x].x);
+			printf("%d|", mlx->dots[y][x].y);
 			printf("%d", mlx->dots[y][x].z);
 			printf(",%d " , mlx->dots[y][x].color);
 			x++;
@@ -79,10 +79,12 @@ int		main(int argc, char **argv)
 	while (get_next_line(mlx->fd, &line) != 0)                    /* заполняем массив координатами и значениями цвета */
 	{
 		mlx->dots[y] = (t_dot *) malloc(sizeof(t_dot) * mlx->mapsx);
-        ft_fill_digits(line, mlx, y);									/* вот тут ... */
+		ft_fzero(mlx->dots[y], mlx->mapsx);							/* сначала обнуляем цвет и высоту*/
+        ft_fill_digits(line, mlx, y);									/* вот тут заполняем ... */
         y++;
 	}
-	ft_print_mlx(mlx);           										/* тупо проверим как заполнился массив */
+	ft_print_mlx(mlx);           										/* тупо проверим как и чем заполнился массив */
+	ft_draw_map(mlx);								/* попробуем нарисовать */
 	mlx_hook(mlx->win_ptr, 4, 0, ft_mouse_pressed, mlx);
 	mlx_hook(mlx->win_ptr, 5, 0, ft_mouse_release, mlx);
 	mlx_hook(mlx->win_ptr, 6, 0, ft_mouse_move, mlx);

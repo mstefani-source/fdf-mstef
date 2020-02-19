@@ -16,6 +16,7 @@
 # include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
+#include <zconf.h>
 # include "libft.h"
 # include "gnl/get_next_line.h"
 # define WX 1024
@@ -58,4 +59,6 @@ int				ft_discover_map(t_mlx *mlx);
 void			ft_fillmap(t_mlx *mlx);
 int				ft_calc_digits(char *line, t_mlx *mlx);
 int             ft_fill_digits(char *line, t_mlx *mlx, int index);
+void            ft_fzero(t_dot *arr, int len);
+void 			ft_draw_map(t_dot *mlx);
 #endif

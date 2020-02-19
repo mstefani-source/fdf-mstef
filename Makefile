@@ -23,6 +23,8 @@ SRC = fdf.c \
 		ft_open_window.c \
 		ft_calc_digits.c \
 		ft_fill_digits.c \
+		ft_fzero.c  \
+		ft_draw_map.c \
 		gnl/get_next_line.c
 
 LIBOBJ=$(SRC:.c=.o)
