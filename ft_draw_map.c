@@ -14,43 +14,18 @@
 
 void	ft_draw_map(t_mlx *mlx)
 {
-	int dx;
-	int dy;
-	int err;
-	int e2;
-	int x = 0;
-	int y = 0;
+	int ix = 0;
+	int iy = 0;
 	
-	while (y != mlx->mapsy)
+	while (iy < mlx->my)
 	{
-		while (x != mlx->mapsx)
+		while (ix < mlx->mx)
 		{
-							 y	x      y  x+1
-			рисуем линию от [0][0] к  [0] [1]
-							 y  x	  y+1  x
-			рисуем линию от [0][0] к  [1] [0]
-			x++;
+			ft_draw_lines(iy, ix, 0, mlx);
+			ft_draw_lines(iy, ix, 1, mlx);
+			ix++;
 		}
-		x = 0;
-		y++;
-	}
-	
-	dx = ft_abs(x2 - mlx->dot.x);
-	dy = ft_abs(y2 - mlx->dot.y);
-	err = dx - dy;
-	while ((mlx->dot.x != x2) || (mlx->dot.y != y2))
-	{
-		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, mlx->dot.x, mlx->dot.y, mlx->dot.color);
-		e2 = 2 * err;
-		if (e2 > -dy)
-		{
-			err -= dy;
-			mlx->dot.x += STEP(mlx->dot.x, x2);
-		}
-		if (e2 < dx)
-		{
-			err += dx;
-			mlx->dot.y += STEP(mlx->dot.y, y2);
-		}
+		ix = 0;
+		iy++;
 	}
 }

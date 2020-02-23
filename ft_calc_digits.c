@@ -18,11 +18,12 @@ char	*ft_goto_next_digit(char *line)
 		line++;
 	return (line);
 }
+
 char	*ft_goto_next_space(char *line)
 {
 	while (*line != ' ' && *line != '\0')
 		line++;
-	return  (line);
+	return (line);
 }
 
 int		ft_calc_digits(char *line, t_mlx *mlx)
@@ -50,6 +51,6 @@ int		ft_calc_digits(char *line, t_mlx *mlx)
 		else if (*line == ',')
 			line = ft_goto_next_space(line);
 	}
-	mlx->mapsx = num;
+	mlx->mx = num;
 	return (num);
 }

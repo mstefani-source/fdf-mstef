@@ -17,17 +17,18 @@ int		ft_discover_map(t_mlx *mlx)
 	char	*line;
 	int		num_digits;
 
-	mlx->mapsy = 0;
-	mlx->mapsx = 0;
+	mlx->my = 0;
+	mlx->mx = 0;
 	num_digits = 0;
 	while (get_next_line(mlx->fd, &line) != 0)
 	{
 		num_digits = num_digits + ft_calc_digits(line, mlx);
-		mlx->mapsy++;
+		mlx->my++;
 	}
 	printf("number of digits = %d\n", num_digits);
-	printf("size X = %d\n", mlx->mapsx);
-	printf("size Y = %d\n", mlx->mapsy);
+	printf("size X = %d\n", mlx->mx);
+	printf("size Y = %d\n", mlx->my);
+
 	free(line);
 	return (0);
 }

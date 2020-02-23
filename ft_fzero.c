@@ -12,15 +12,22 @@
 
 #include "fdf.h"
 
-void    ft_fzero(t_dot *dots, int len)
+void    ft_fzero(t_dot *dots, int lenx, int leny, int y)
 {
 	int		i;
+	int		stepx;
+	int		stepy;
 
     i = 0;
-	while (len - i)
+    stepx = (X_MAX - X_MIN) / lenx;
+	stepy = (Y_MAX - Y_MIN) / leny;
+	while (lenx - i)
 	{
-		dots[i].color = 0;
+		dots[i].c = COLOR_DEFAULT;
 		dots[i].z = 0;
+		dots[i].x = X_MIN + (i * stepx);
+		dots[i].y = Y_MIN + (y * stepy);
 		i++;
 	}
+
 }

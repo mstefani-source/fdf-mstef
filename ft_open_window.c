@@ -20,13 +20,13 @@ void	ft_open_window(t_mlx *mlx, char *filename)
 		exit(0);
 	}
 	write(1, "File read OK\n", 13);
-	if (!(mlx->mlx_ptr = mlx_init()))
+	if (!(mlx->mlx_p = mlx_init()))
 	{
 		write(1, "!! Init KO !!\n", 14);
 		exit(0);
 	}
 	write(1, "Init      OK\n", 13);
-	if (!(mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WX, WY, "Very_Nice_FdF")))
+	if (!(mlx->wnd = mlx_new_window(mlx->mlx_p, WX, WY, "Very_Nice_FdF")))
 	{
 		write(1, "!! KO !!\n", 9);
 		exit(1);

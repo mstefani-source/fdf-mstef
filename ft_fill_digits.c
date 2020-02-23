@@ -18,6 +18,7 @@ char	*ft_gonxtd(char *line)
 		line++;
 	return (line);
 }
+
 char	*ft_gns(char *line)
 {
 	while (*line != ' ' && *line != '\0')
@@ -27,10 +28,12 @@ char	*ft_gns(char *line)
 
 int		ft_readcolor(char *line)
 {
-	char hexc[6];
-	int i = 0;
-	int color = 0;
+	char	hexc[6];
+	int		i;
+	int		color;
 
+	i = 0;
+	color = 0;
 	line = line + 3;
 	while (*line != ' ' && *line != '\0')
 	{
@@ -52,8 +55,6 @@ int		ft_fill_digits(char *line, t_mlx *mlx, int y)
 	line = ft_gonxtd(line);
 	while (*line)
 	{
-		mlx->dots[y][x].x = x * 10;
-		mlx->dots[y][x].y = y * 10;
 		if (*line >= '0' && *line <= '9')
 		{
 			res *= 10;
@@ -62,14 +63,14 @@ int		ft_fill_digits(char *line, t_mlx *mlx, int y)
 		}
 		else if (*line == ' ')
 		{
-		    mlx->dots[y][x].z = res;
+			mlx->dots[y][x].z = res;
 			line = ft_gonxtd(line);
 			res = 0;
 			x++;
 		}
 		else if (*line == ',')
 		{
-			mlx->dots[y][x].color = ft_readcolor(line);
+			mlx->dots[y][x].c = ft_readcolor(line);
 			line = ft_gns(line);
 		}
 	}

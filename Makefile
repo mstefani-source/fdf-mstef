@@ -25,6 +25,7 @@ SRC = fdf.c \
 		ft_fill_digits.c \
 		ft_fzero.c  \
 		ft_draw_map.c \
+		ft_draw_lines.c \
 		gnl/get_next_line.c
 
 LIBOBJ=$(SRC:.c=.o)
