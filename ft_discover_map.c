@@ -12,23 +12,26 @@
 
 #include "fdf.h"
 
-int		ft_discover_map(t_mlx *mlx)
+t_mlx		*ft_discover_map(char *filename)
 {
 	char	*line;
-	int		num_digits;
+	t_mlx	*mlx;
 
+	mlx = malloc(sizeof(t_mlx));
 	mlx->my = 0;
 	mlx->mx = 0;
-	num_digits = 0;
+	if ((mlx->fd = open(filename, O_RDONLY)) < 0)
+		exit(0);
 	while (get_next_line(mlx->fd, &line) != 0)
 	{
-		num_digits = num_digits + ft_calc_digits(line, mlx);
+		ft_calc_digits(line, mlx);
 		mlx->my++;
 	}
-	printf("number of digits = %d\n", num_digits);
-	printf("size X = %d\n", mlx->mx);
-	printf("size Y = %d\n", mlx->my);
-
+	mlx->stepx = WX / (2 * mlx->mx);
+	mlx->stepy = WY / (2 * mlx->my);
+	mlx->x0 = 0 - (mlx->mx * mlx->stepx - mlx->stepx) / 2;
+	mlx->y0 = 0 - (mlx->my * mlx->stepy - mlx->stepy) / 2;
 	free(line);
-	return (0);
+	close(mlx->fd);
+	return (mlx);
 }

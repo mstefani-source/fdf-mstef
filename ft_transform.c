@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   ft_transform.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/01 17:58:23 by mstefani          #+#    #+#             */
-/*   Updated: 2020/02/03 15:54:45 by mstefani         ###   ########.fr       */
+/*   Created: 2020/02/25 16:56:33 by mstefani          #+#    #+#             */
+/*   Updated: 2020/02/25 16:56:36 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		main(int argc, char **argv)
+void	iso(int *x, int *y, int z)
 {
-	t_mlx	*mlx;
+	int previous_x;
+	int previous_y;
 
-	if (argc != 2)
-		return (0);
-	mlx = ft_discover_map(argv[1]);
-	ft_open_window(mlx, argv[1]);
-	ft_catch_order(mlx);
-	ft_draw_map(mlx);
-	mlx_loop(mlx->ptr);
-	return (0);
+	previous_x = *x;
+	previous_y = *y;
+	*x = (previous_x - previous_y) * (int)cos(0.523599);
+	*y = -z + (previous_x + previous_y) * (int)sin(0.523599);
+}
+
+t_dot ft_transform(t_dot dot, t_mlx* mlx)
+{
+	if (mlx->projection == ISO)
+		iso(&dot.x, &dot.y, dot.z);
+	return (dot);
 }

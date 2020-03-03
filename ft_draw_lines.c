@@ -12,32 +12,38 @@
 
 #include "fdf.h"
 
-void	ft_draw(int y2, int x2, t_mlx *mlx)
-{
-	int dx;
-	int dy;
-	int err;
-	int e2;
 
-	dx = ft_abs(x2 - mlx->dot.x);
-	dy = ft_abs(y2 - mlx->dot.y);
-	err = dx - dy;
-	while ((mlx->dot.x != x2) || (mlx->dot.y != y2))
-	{
-		mlx_pixel_put(mlx->mlx_p, mlx->wnd, mlx->dot.x, mlx->dot.y, mlx->dot.c);
-		e2 = 2 * err;
-		if (e2 > -dy)
-		{
-			err -= dy;
-			mlx->dot.x += STEP(mlx->dot.x, x2);
-		}
-		if (e2 < dx)
-		{
-			err += dx;
-			mlx->dot.y += STEP(mlx->dot.y, y2);
-		}
-	}
-	mlx_pixel_put(mlx->mlx_p, mlx->wnd, mlx->dot.x, mlx->dot.y, mlx->dot.c);
+double	percent(int start, int end, int current)
+{
+	double	placement;
+	double	distance;
+
+	placement = current - start;
+	distance = end - start;
+	return ((distance == 0) ? 1.0 : (placement / distance));
+}
+
+int		ft_ofset(int iy, int ix, int xy, t_mlx *mlx)
+{
+	int offset;
+	int x;
+	int y;
+	int z;
+
+	x = mlx->dots[iy][ix].x;
+	y = mlx->dots[iy][ix].y;
+	z = 0;
+	if (mlx->dots[iy][ix].z)
+			z = mlx->dots[iy][ix].z + mlx->dots[iy][ix].z / 100 * mlx->stepz;
+	if (xy == 0)
+		offset = WX / 2 + (x - y) * cos(0.523599);
+	else
+		offset = WY / 2 + -z + (x + y) * sin(0.523599);
+	if (xy == 0 && mlx->projection)
+		offset = WX / 2;
+	if (xy == 1 && mlx->projection)
+		offset = WY / 2;
+	return (offset);
 }
 
 void	ft_draw_lines(int iy, int ix, int s, t_mlx *mlx)
@@ -45,23 +51,24 @@ void	ft_draw_lines(int iy, int ix, int s, t_mlx *mlx)
 	int x2;
 	int y2;
 
-	mlx->dot.x = mlx->dots[iy][ix].x;
-	mlx->dot.y = mlx->dots[iy][ix].y;
+	mlx->dot.x = mlx->dots[iy][ix].x + ft_ofset(iy, ix, 0, mlx);
+	mlx->dot.y = mlx->dots[iy][ix].y + ft_ofset(iy, ix, 1, mlx);
+	mlx->dot.z = mlx->dots[iy][ix].z;
 	mlx->dot.c = mlx->dots[iy][ix].c;
-	if (((ix + 1) == mlx->mx && (s == 0)) || ((iy + 1) == mlx->my && (s == 1)))
+	if ((iy == mlx->my) && (s == 1))
 	{
-		x2 = mlx->dots[iy][ix].x;
-		y2 = mlx->dots[iy][ix].y;
+		x2 = mlx->dots[iy][ix].x + ft_ofset(iy, ix, 0, mlx);
+		y2 = mlx->dots[iy][ix].y + ft_ofset(iy, ix, 1, mlx);
 	}
-	else if (s == 0)
+	if (((ix + 1) != mlx->mx) && s == 0)
 	{
-		x2 = mlx->dots[iy][ix + 1].x;
-		y2 = mlx->dots[iy][ix + 1].y;
+		x2 = mlx->dots[iy][ix + 1].x + ft_ofset(iy, ix + 1, 0, mlx);
+		y2 = mlx->dots[iy][ix + 1].y + ft_ofset(iy, ix + 1, 1, mlx);
 	}
-	else
+	if (((iy + 1) != mlx->my) && s == 1)
 	{
-		x2 = mlx->dots[iy + 1][ix].x;
-		y2 = mlx->dots[iy + 1][ix].y;
+		x2 = mlx->dots[iy + 1][ix].x + ft_ofset(iy + 1, ix, 0, mlx);
+		y2 = mlx->dots[iy + 1][ix].y + ft_ofset(iy + 1, ix, 1, mlx);
 	}
 	ft_draw(y2, x2, mlx);
 }

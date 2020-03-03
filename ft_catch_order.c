@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   ft_catch_order.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/01 17:58:23 by mstefani          #+#    #+#             */
-/*   Updated: 2020/02/03 15:54:45 by mstefani         ###   ########.fr       */
+/*   Created: 2020/02/27 20:00:12 by mstefani          #+#    #+#             */
+/*   Updated: 2020/02/27 20:03:26 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		main(int argc, char **argv)
+int			ft_close(void *param)
 {
-	t_mlx	*mlx;
+	(void)param;
+	exit(0);
+}
 
-	if (argc != 2)
-		return (0);
-	mlx = ft_discover_map(argv[1]);
-	ft_open_window(mlx, argv[1]);
-	ft_catch_order(mlx);
-	ft_draw_map(mlx);
-	mlx_loop(mlx->ptr);
-	return (0);
+void		ft_catch_order(t_mlx *mlx)
+{
+	mlx_hook(mlx->wnd, 2, 0, key_win, mlx);
+	mlx_hook(mlx->wnd, 17, 0, ft_close, mlx);
+	mlx_hook(mlx->wnd, 4, 0, ft_mouse_pressed, mlx);
+	mlx_hook(mlx->wnd, 5, 0, ft_mouse_release, mlx);
+	mlx_hook(mlx->wnd, 6, 0, ft_mouse_move, mlx);
 }

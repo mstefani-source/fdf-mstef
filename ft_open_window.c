@@ -14,22 +14,27 @@
 
 void	ft_open_window(t_mlx *mlx, char *filename)
 {
+	char	*line;
+	int		y;
+
+	y = 0;
 	if ((mlx->fd = open(filename, O_RDONLY)) < 0)
-	{
-		write(1, "Error reading file\n", 19);
 		exit(0);
-	}
 	write(1, "File read OK\n", 13);
-	if (!(mlx->mlx_p = mlx_init()))
-	{
-		write(1, "!! Init KO !!\n", 14);
+	if (!(mlx->ptr = mlx_init()))
 		exit(0);
-	}
 	write(1, "Init      OK\n", 13);
-	if (!(mlx->wnd = mlx_new_window(mlx->mlx_p, WX, WY, "Very_Nice_FdF")))
-	{
-		write(1, "!! KO !!\n", 9);
+	if (!(mlx->wnd = mlx_new_window(mlx->ptr, WX, WY, "Very_Nice_FdF")))
 		exit(1);
+	write(1, "Img       OK\n", 13);
+	mlx->img = mlx_new_image(mlx->ptr, WX, WY);
+	mlx->data_addr = mlx_get_data_addr(mlx->img, &mlx->bit_per_pixel, \
+	&mlx->size_line, &mlx->endian);
+	mlx->dots = (t_dot **)malloc(sizeof(t_dot *) * mlx->my);
+	while (get_next_line(mlx->fd, &line) != 0)
+	{
+		mlx->dots[y] = (t_dot *)malloc(sizeof(t_dot) * mlx->mx);
+		ft_fill_digits(line, mlx, y);
+		y++;
 	}
-	write(1, "Window    OK\n", 13);
 }

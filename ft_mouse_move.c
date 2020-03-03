@@ -19,8 +19,10 @@ int		ft_mouse_move(int x, int y, t_mlx *mlx)
 		ft_plot_line(x, y, mlx);
 		mlx->dot.x = x;
 		mlx->dot.y = y;
+
 	}
 	mlx->dot.x = x;
 	mlx->dot.y = y;
+
 	return (0);
 }

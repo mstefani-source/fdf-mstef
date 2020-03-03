@@ -12,20 +12,38 @@
 
 #include "fdf.h"
 
+static void	draw_background(t_mlx *mlx)
+{
+	int	*image;
+	int	i;
+
+	ft_bzero(mlx->data_addr, WX * WY * (mlx->bit_per_pixel / 8));
+	image = (int *)(mlx->data_addr);
+	i = 0;
+	while (i < WY * WX)
+	{
+		image[i] = BACKGROUND;
+		i++;
+	}
+}
+
 void	ft_draw_map(t_mlx *mlx)
 {
-	int ix = 0;
+	int ix;
 	int iy = 0;
-	
+
+	draw_background(mlx);
 	while (iy < mlx->my)
 	{
-		while (ix < mlx->mx)
+		ix = 0;
+		while (ix < mlx->mx - 1)
 		{
 			ft_draw_lines(iy, ix, 0, mlx);
 			ft_draw_lines(iy, ix, 1, mlx);
 			ix++;
 		}
-		ix = 0;
+		ft_draw_lines(iy, ix, 1, mlx);
 		iy++;
 	}
+	mlx_put_image_to_window(mlx->ptr, mlx->wnd, mlx->img, 0, 0);
 }

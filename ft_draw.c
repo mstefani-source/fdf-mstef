@@ -1,18 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_plot_line.c                                     :+:      :+:    :+:   */
+/*   ft_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/05 18:40:47 by mstefani          #+#    #+#             */
-/*   Updated: 2020/02/05 18:40:55 by mstefani         ###   ########.fr       */
+/*   Created: 2020/03/03 22:11:10 by mstefani          #+#    #+#             */
+/*   Updated: 2020/03/03 22:11:12 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		ft_plot_line(int x2, int y2, t_mlx *mlx)
+double 	ft_length(int x2, int y2, t_dot start_dot)
+{
+
+	return (sqrt(pow(x2 - start_dot.x,2) + pow(y2 - start_dot.y, 2)));
+}
+
+int		ft_calc_color(t_dot start_dot, int x2, int y2, double len)
+{
+	int			new_color;
+	double		percent;
+
+	percent = ft_length(x2 ,y2, start_dot) / len * 100;
+	new_color = percent * COLOR_DEFAULT;
+
+	return (new_color);
+}
+
+void	ft_draw(int y2, int x2, t_mlx *mlx)
 {
 	int dx;
 	int dy;
@@ -21,10 +38,12 @@ int		ft_plot_line(int x2, int y2, t_mlx *mlx)
 
 	dx = ft_abs(x2 - mlx->dot.x);
 	dy = ft_abs(y2 - mlx->dot.y);
+//	mlx->len = ft_length(x2,y2,mlx->dot);
 	err = dx - dy;
 	while ((mlx->dot.x != x2) || (mlx->dot.y != y2))
 	{
-		mlx_pixel_put(mlx->ptr, mlx->wnd, mlx->dot.x, mlx->dot.y, mlx->dot.c);
+		mlx->dot.c = ft_calc_color(mlx->dot, x2, y2, ft_length(x2,y2,mlx->dot));
+		ft_put_pixel(mlx->dot.x, mlx->dot.y, mlx->dot.c, mlx);
 		e2 = 2 * err;
 		if (e2 > -dy)
 		{
@@ -37,5 +56,6 @@ int		ft_plot_line(int x2, int y2, t_mlx *mlx)
 			mlx->dot.y += STEP(mlx->dot.y, y2);
 		}
 	}
-	return (0);
+	ft_put_pixel(mlx->dot.x, mlx->dot.y, mlx->dot.c, mlx);
 }
+

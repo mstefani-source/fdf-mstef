@@ -12,7 +12,7 @@
 
 NAME = fdf
 
-HEADERS	=-I fdf.h
+HEADERS	= -I fdf.h
 
 SRC = fdf.c \
 		ft_mouse_move.c \
@@ -26,21 +26,25 @@ SRC = fdf.c \
 		ft_fzero.c  \
 		ft_draw_map.c \
 		ft_draw_lines.c \
-		gnl/get_next_line.c
+		gnl/get_next_line.c \
+        ft_transform.c \
+        key_win.c \
+        ft_put_pixel.c \
+        ft_catch_order.c \
+        ft_convert.c \
+        ft_draw.c
 
-LIBOBJ=$(SRC:.c=.o)
-
-LIBNAME = ./libft/libft.a
+LIBOBJ = $(SRC:.c=.o)
 
 CFLAGS = -Wall -Werror -Wextra 
-GLFLAGS = -lm -lmlx -framework OpenGL -framework AppKit
+GLFLAGS = -lft -lm -lmlx -framework OpenGL -framework AppKit -L libft
 
 $(NAME): $(LIBOBJ)
 		make -C ./libft
-		gcc $(CFLAGS) $(LIBOBJ) $(LIBNAME) $(GLFLAGS) -o $(NAME)
+		gcc $(CFLAGS) $(LIBOBJ) $(GLFLAGS) -o $(NAME)
 
 %.o:%.c
-	gcc $(CFLAGS) $< -c -o $@
+	gcc $(CFLAGS) -MD -c $<  -o $@
 
 all: $(NAME)
    

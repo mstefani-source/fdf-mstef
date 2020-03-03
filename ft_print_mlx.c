@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   ft_print_mlx.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/01 17:58:23 by mstefani          #+#    #+#             */
-/*   Updated: 2020/02/03 15:54:45 by mstefani         ###   ########.fr       */
+/*   Created: 2020/02/27 21:04:02 by mstefani          #+#    #+#             */
+/*   Updated: 2020/02/27 21:04:04 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		main(int argc, char **argv)
+void	ft_print_mlx(t_mlx *mlx)
 {
-	t_mlx	*mlx;
+	int x;
+	int y;
 
-	if (argc != 2)
-		return (0);
-	mlx = ft_discover_map(argv[1]);
-	ft_open_window(mlx, argv[1]);
-	ft_catch_order(mlx);
-	ft_draw_map(mlx);
-	mlx_loop(mlx->ptr);
-	return (0);
+	x = 0;
+	y = 0;
+	while (y != mlx->my)
+	{
+		while (x != mlx->mx)
+		{
+			printf("%d|", mlx->dots[y][x].x);
+			printf("%d|", mlx->dots[y][x].y);
+			printf("%f", mlx->dots[y][x].z);
+			printf(",%d ", mlx->dots[y][x].c);
+			x++;
+		}
+		printf("\n");
+		x = 0;
+		y++;
+	}
 }
