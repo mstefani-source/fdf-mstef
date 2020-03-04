@@ -12,6 +12,35 @@
 
 #include "fdf.h"
 
+void	ft_find_minmaxz(t_mlx *mlx)
+{
+	int	x;
+	int y;
+
+	y = 0;
+	mlx->minz = 0;
+	mlx->maxz = 0;
+	while (y < mlx->my)
+	{
+		x = 0;
+		while (x < mlx->mx)
+		{
+			if (mlx->dots[y][x].z > mlx->maxz)
+			{
+				mlx->maxz = mlx->dots[y][x].z;
+				mlx->maxcolor = mlx->dots[y][x].c;
+			}
+			if (mlx->dots[y][x].z < mlx->minz)
+			{
+				mlx->minz = mlx->dots[y][x].z;
+				mlx->mincolor = mlx->dots[y][x].c;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 void	ft_open_window(t_mlx *mlx, char *filename)
 {
 	char	*line;
@@ -37,4 +66,5 @@ void	ft_open_window(t_mlx *mlx, char *filename)
 		ft_fill_digits(line, mlx, y);
 		y++;
 	}
+	ft_find_minmaxz(mlx);
 }

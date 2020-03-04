@@ -124,12 +124,12 @@ int		key_win(int key, t_mlx *mlx)
 	}
 	else if (key == 47)
 	{
-		mlx->stepz = mlx->stepz + 1;
+		mlx->stepz = mlx->stepz + 10;
 		ft_draw_map(mlx);
 	}
 	else if (key == 43)
 	{
-		mlx->stepz = mlx->stepz - 1;
+		mlx->stepz = mlx->stepz - 10;
 		ft_draw_map(mlx);
 	}
 	else if (key == 12)

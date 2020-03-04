@@ -12,18 +12,6 @@
 
 #include "fdf.h"
 
-int		rgb_to_int(int red, int green, int blue)
-{
-	int r;
-	int g;
-	int b;
-
-	r = red & 0xFF;
-	g = green & 0xFF;
-	b = blue & 0xFF;
-	return (r << 16 | g << 8 | b);
-}
-
 void	ft_put_pixel(int x, int y, int color, t_mlx *mlx)
 {
 	int i;

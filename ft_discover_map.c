@@ -12,6 +12,14 @@
 
 #include "fdf.h"
 
+void 		ft_set_constants(t_mlx *mlx)
+{
+	mlx->stepx = WX / (2 * mlx->mx);
+	mlx->stepy = WY / (2 * mlx->my);
+	mlx->x0 = 0 - (mlx->mx * mlx->stepx - mlx->stepx) / 2;
+	mlx->y0 = 0 - (mlx->my * mlx->stepy - mlx->stepy) / 2;
+}
+
 t_mlx		*ft_discover_map(char *filename)
 {
 	char	*line;
@@ -27,11 +35,8 @@ t_mlx		*ft_discover_map(char *filename)
 		ft_calc_digits(line, mlx);
 		mlx->my++;
 	}
-	mlx->stepx = WX / (2 * mlx->mx);
-	mlx->stepy = WY / (2 * mlx->my);
-	mlx->x0 = 0 - (mlx->mx * mlx->stepx - mlx->stepx) / 2;
-	mlx->y0 = 0 - (mlx->my * mlx->stepy - mlx->stepy) / 2;
 	free(line);
+	ft_set_constants(mlx);
 	close(mlx->fd);
 	return (mlx);
 }

@@ -24,7 +24,8 @@
 # define WX 1920
 # define WY 1080
 # define BACKGROUND	0x222222
-# define COLOR_DEFAULT 0x008200
+# define COLOR_DEFAULT_MIN 0x008200
+# define COLOR_DEFAULT_MAX 0xFFFFFF
 # define INSIDE(x, y) ((x > 0 && y > 0 && x < WX && y < WY) ? 1 : 0)
 # define STEP(a, b) ((a < b) ? 1 : -1)
 
@@ -64,6 +65,8 @@ typedef struct			s_mlx
 	double 				stepz;
 	int					maxz;
 	int 				minz;
+	int					maxcolor;
+	int 				mincolor;
 	int					x0;
 	int					y0;
 	double 				len;

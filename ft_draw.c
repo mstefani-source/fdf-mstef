@@ -12,20 +12,30 @@
 
 #include "fdf.h"
 
-double 	ft_length(int x2, int y2, t_dot start_dot)
+int		rgb_to_int(int red, int green, int blue)
 {
+	int r;
+	int g;
+	int b;
 
-	return (sqrt(pow(x2 - start_dot.x,2) + pow(y2 - start_dot.y, 2)));
+	r = red & 0xFF;
+	g = green & 0xFF;
+	b = blue & 0xFF;
+	return (r << 16 | g << 8 | b);
 }
 
-int		ft_calc_color(t_dot start_dot, int x2, int y2, double len)
+double	ft_length(int x2, int y2, t_dot start_dot)
+{
+	return (sqrt(pow(x2 - start_dot.x, 2) + pow(y2 - start_dot.y, 2)));
+}
+
+int		ft_calc_color(int x2, int y2, t_mlx *mlx)
 {
 	int			new_color;
 	double		percent;
 
-	percent = ft_length(x2 ,y2, start_dot) / len * 100;
-	new_color = percent * COLOR_DEFAULT;
-
+	percent = ft_length(x2, y2, mlx->dot) / (mlx->maxz - mlx->minz) * 100;
+	new_color = rgb_to_int(255 / 100 * percent, 153, 0);
 	return (new_color);
 }
 
@@ -38,11 +48,10 @@ void	ft_draw(int y2, int x2, t_mlx *mlx)
 
 	dx = ft_abs(x2 - mlx->dot.x);
 	dy = ft_abs(y2 - mlx->dot.y);
-//	mlx->len = ft_length(x2,y2,mlx->dot);
 	err = dx - dy;
 	while ((mlx->dot.x != x2) || (mlx->dot.y != y2))
 	{
-		mlx->dot.c = ft_calc_color(mlx->dot, x2, y2, ft_length(x2,y2,mlx->dot));
+		mlx->dot.c = ft_calc_color(x2, y2, mlx);
 		ft_put_pixel(mlx->dot.x, mlx->dot.y, mlx->dot.c, mlx);
 		e2 = 2 * err;
 		if (e2 > -dy)
@@ -58,4 +67,3 @@ void	ft_draw(int y2, int x2, t_mlx *mlx)
 	}
 	ft_put_pixel(mlx->dot.x, mlx->dot.y, mlx->dot.c, mlx);
 }
-
