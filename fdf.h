@@ -46,7 +46,17 @@ typedef struct			s_dot
 	int					y;
 	double				z;
 	int					c;
+	int 				dz;
 }						t_dot;
+
+typedef struct			s_camera
+{
+	t_projection		projection;
+	int					zoom;
+	double				alpha;
+	double				beta;
+	double				gamma;
+}						t_camera;
 
 typedef struct			s_mlx
 {
@@ -71,6 +81,7 @@ typedef struct			s_mlx
 	int					y0;
 	double 				len;
 
+	t_camera			camera;
 	t_projection		projection;
 	t_dot				dot;
 	t_dot				**dots;

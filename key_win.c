@@ -87,7 +87,7 @@ int		key_win(int key, t_mlx *mlx)
 	write(1, "\n", 1);
 	if (key == 53)
 	{
-		close(mlx->fd);
+		mlx_destroy_window(mlx->ptr, mlx->wnd);
 		free(mlx);
 		exit(0);
 	}
@@ -99,13 +99,11 @@ int		key_win(int key, t_mlx *mlx)
 	else if (key == 126)
 	{
 		ft_mlx_up(mlx);
-//		mlx->stepz = mlx->stepz + 10;
 		ft_draw_map(mlx);;
 	}
 	else if (key == 125)
 	{
 		ft_mlx_down(mlx);
-//		mlx->stepz = mlx->stepz - 10;
 		ft_draw_map(mlx);
 	}
 	else if (key == 123) {
@@ -125,14 +123,50 @@ int		key_win(int key, t_mlx *mlx)
 	else if (key == 47)
 	{
 		mlx->stepz = mlx->stepz + 10;
+		mlx->maxz = mlx->maxz + 10;
+		mlx->dot.dz = mlx->maxz - mlx->minz;
 		ft_draw_map(mlx);
 	}
 	else if (key == 43)
 	{
 		mlx->stepz = mlx->stepz - 10;
+		mlx->maxz = mlx->maxz - 10;
+		mlx->dot.dz = mlx->maxz - mlx->minz;
+		ft_draw_map(mlx);
+	}
+	else if (key == 6)
+	{
+		mlx->camera.gamma += 0.05;
+		ft_draw_map(mlx);
+	}
+	else if (key == 7)
+	{
+		mlx->camera.gamma -= 0.05;
+		ft_draw_map(mlx);
+	}
+	else if (key == 0)
+	{
+		mlx->camera.beta += 0.05;
+		ft_draw_map(mlx);
+	}
+	else if (key == 1)
+	{
+		mlx->camera.beta -= 0.05;
 		ft_draw_map(mlx);
 	}
 	else if (key == 12)
+	{
+		mlx->camera.alpha += 0.05;
+		ft_draw_map(mlx);
+	}
+	else if (key == 13)
+	{
+		mlx->camera.alpha -= 0.05;
+		ft_draw_map(mlx);
+	}
+	else if (key == 10) {
 		mlx_clear_window(mlx->ptr, mlx->wnd);
+		ft_draw_map(mlx);
+	}
 	return (0);
 }

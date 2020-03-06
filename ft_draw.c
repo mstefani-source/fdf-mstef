@@ -12,6 +12,16 @@
 
 #include "fdf.h"
 
+double	percent(int start, int end, int current)
+{
+	double	placement;
+	double	distance;
+
+	placement = current - start;
+	distance = end - start;
+	return ((distance == 0) ? 1.0 : (placement / distance));
+}
+
 int		rgb_to_int(int red, int green, int blue)
 {
 	int r;
@@ -34,8 +44,10 @@ int		ft_calc_color(int x2, int y2, t_mlx *mlx)
 	int			new_color;
 	double		percent;
 
-	percent = ft_length(x2, y2, mlx->dot) / (mlx->maxz - mlx->minz) * 100;
+	percent = (mlx->len - ft_length(x2, y2, mlx->dot)) / mlx->len * 100;
 	new_color = rgb_to_int(255 / 100 * percent, 153, 0);
+	if (mlx->dot.dz == 0 && mlx->dot.z == mlx->minz)
+		new_color = COLOR_DEFAULT_MIN;
 	return (new_color);
 }
 
@@ -49,6 +61,7 @@ void	ft_draw(int y2, int x2, t_mlx *mlx)
 	dx = ft_abs(x2 - mlx->dot.x);
 	dy = ft_abs(y2 - mlx->dot.y);
 	err = dx - dy;
+	mlx->len = ft_length(x2, y2, mlx->dot);
 	while ((mlx->dot.x != x2) || (mlx->dot.y != y2))
 	{
 		mlx->dot.c = ft_calc_color(x2, y2, mlx);

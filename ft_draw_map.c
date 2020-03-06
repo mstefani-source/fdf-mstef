@@ -38,7 +38,7 @@ void	ft_draw_map(t_mlx *mlx)
 		ix = 0;
 		while (ix < mlx->mx - 1)
 		{
-			ft_draw_lines(iy, ix, 0, mlx);
+ 			ft_draw_lines(iy, ix, 0, mlx);
 			ft_draw_lines(iy, ix, 1, mlx);
 			ix++;
 		}

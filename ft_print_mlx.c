@@ -25,7 +25,7 @@ void	ft_print_mlx(t_mlx *mlx)
 		{
 			printf("%d|", mlx->dots[y][x].x);
 			printf("%d|", mlx->dots[y][x].y);
-			printf("%f", mlx->dots[y][x].z);
+			printf("%d", mlx->dots[y][x].z);
 			printf(",%d ", mlx->dots[y][x].c);
 			x++;
 		}
