@@ -14,6 +14,8 @@
 # define FDF_FDF_H
 # include <fcntl.h>
 # include <mlx.h>
+# include <X.h>
+# include <Xlib.h>
 # include "image.xpm"
 # include <stdio.h>
 # include <stdlib.h>
@@ -21,8 +23,8 @@
 # include "libft.h"
 # include <math.h>
 # include "gnl/get_next_line.h"
-# define WX 1920
-# define WY 1080
+# define WX 800
+# define WY 600
 # define BACKGROUND	0x222222
 # define COLOR_DEFAULT_MIN 0x008200
 # define COLOR_DEFAULT_MAX 0xFFFFFF
@@ -89,6 +91,7 @@ typedef struct			s_mlx
 }						t_mlx;
 
 void					ft_open_window(t_mlx *mlx, char *filename);
+void					ft_set_constants(t_mlx *mlx);
 int						ft_mouse_move(int x, int y, t_mlx *mlx);
 int						ft_mouse_release(int buttom, int x, int y, t_mlx *mlx);
 int						ft_mouse_pressed(int buttom, int x, int y, t_mlx *mlx);
@@ -99,7 +102,7 @@ void					ft_fzero(t_mlx *mlx, int y);
 void					ft_draw_map(t_mlx *mlx);
 void					ft_draw_lines(int y, int x, int step, t_mlx *mlx);
 void					ft_put_pixel(int x, int y, int color, t_mlx *mlx);
-int						key_win(int key, t_mlx *mlx);
+int						ft_key_win(int key, t_mlx *mlx);
 void					ft_catch_order(t_mlx *mlx);
 void					ft_draw(int y2, int x2, t_mlx *mlx);
 t_mlx					*ft_discover_map(char *filename);

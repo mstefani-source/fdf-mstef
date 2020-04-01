@@ -1,0 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_discover_map.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/07 15:23:45 by mstefani          #+#    #+#             */
+/*   Updated: 2020/02/09 18:25:54 by mstefani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../fdf.h"
+
+t_mlx		*ft_discover_map(char *filename)
+{
+	char	*line;
+	t_mlx	*mlx;
+
+	mlx = malloc(sizeof(t_mlx));
+	mlx->my = 0;
+	mlx->mx = 0;
+	if ((mlx->fd = open(filename, O_RDONLY)) < 0)
+		exit(0);
+	while (get_next_line(mlx->fd, &line) != 0)
+	{
+		ft_calc_digits(line, mlx);
+		mlx->my++;
+	}
+	free(line);
+	ft_set_constants(mlx);
+	close(mlx->fd);
+	return (mlx);
+}
