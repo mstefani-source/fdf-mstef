@@ -12,20 +12,34 @@
 
 #include "../fdf.h"
 
-void	iso(int *x, int *y, int z)
+void	ft_iso(int *x, int *y, int z)
 {
 	int previous_x;
 	int previous_y;
 
 	previous_x = *x;
 	previous_y = *y;
-	*x = (previous_x - previous_y) * (int)cos(0.523599);
-	*y = -z + (previous_x + previous_y) * (int)sin(0.523599);
+	*x = (previous_x - previous_y) * cos(0.523599);
+	*y = -z + (previous_x + previous_y) * sin(0.523599);
 }
 
-t_dot ft_transform(t_dot dot, t_mlx* mlx)
+void	ft_transform(t_mlx* mlx)
 {
-	if (mlx->projection == ISO)
-		iso(&dot.x, &dot.y, dot.z);
-	return (dot);
+	int y;
+	int x;
+
+	y = 0;
+	if (mlx->camera->projection == ISO)
+	{
+	while (y < mlx->my)
+	{
+		x = 0;
+		while (x < mlx->mx)
+		{
+			ft_iso(&mlx->dots[y][x].x, &mlx->dots[y][x].y, mlx->dots[y][x].z);
+			x++;
+		}
+		y++;
+	}
+	}
 }

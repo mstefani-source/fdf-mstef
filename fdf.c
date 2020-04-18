@@ -19,9 +19,13 @@ int		main(int argc, char **argv)
 	if (argc != 2)
 		return (0);
 	mlx = ft_discover_map(argv[1]);
-	ft_open_window(mlx, argv[1]);
+	mlx->wnd = ft_init_window();
+	mlx->dots = ft_fill_map(mlx, argv[1]);
 	ft_catch_order(mlx);
+	ft_final_offset(mlx);
+	ft_rotate(mlx);
+	ft_transform(mlx);
 	ft_draw_map(mlx);
-	mlx_loop(mlx->ptr);
+	mlx_loop(mlx->wnd->ptr);
 	return (0);
 }

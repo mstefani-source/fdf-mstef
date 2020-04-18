@@ -19,22 +19,22 @@ int		ft_plot_line(int x2, int y2, t_mlx *mlx)
 	int err;
 	int e2;
 
-	dx = ft_abs(x2 - mlx->dot.x);
-	dy = ft_abs(y2 - mlx->dot.y);
+	dx = ft_abs(x2 - mlx->dot->x);
+	dy = ft_abs(y2 - mlx->dot->y);
 	err = dx - dy;
-	while ((mlx->dot.x != x2) || (mlx->dot.y != y2))
+	while ((mlx->dot->x != x2) || (mlx->dot->y != y2))
 	{
-		mlx_pixel_put(mlx->ptr, mlx->wnd, mlx->dot.x, mlx->dot.y, mlx->dot.c);
+		mlx_pixel_put(mlx->wnd->ptr, mlx->wnd->wnd, mlx->dot->x, mlx->dot->y, mlx->dot->c);
 		e2 = 2 * err;
 		if (e2 > -dy)
 		{
 			err -= dy;
-			mlx->dot.x += STEP(mlx->dot.x, x2);
+			mlx->dot->x += STEP(mlx->dot->x, x2);
 		}
 		if (e2 < dx)
 		{
 			err += dx;
-			mlx->dot.y += STEP(mlx->dot.y, y2);
+			mlx->dot->y += STEP(mlx->dot->y, y2);
 		}
 	}
 	return (0);
