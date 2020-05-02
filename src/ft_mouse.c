@@ -22,13 +22,9 @@ int		ft_mouse_pressed(int buttom, int x, int y, t_mlx *mlx)
 {
 	if (buttom == 1 && INSIDE(x, y))
 	{
-		write(1, "button 1\n", 9);
 		mlx->st_mouse.is_pressed = 1;
 		mlx->dot->x = x;
 		mlx->dot->y = y;
-		mlx_pixel_put(mlx->wnd->ptr, mlx->wnd->wnd, x, y, mlx->dot->c);
-		mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, mlx->dot->x, mlx->dot->y, RED, ft_itoa(x - WX/2 ));
-		mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, mlx->dot->x, mlx->dot->y + 10, RED, ft_itoa(y - WY/2 ));
 		return (0);
 	}
 	if (buttom == 5 && INSIDE(x, y))
@@ -41,9 +37,10 @@ int		ft_mouse_pressed(int buttom, int x, int y, t_mlx *mlx)
 		if(mlx->camera->zoom > 4)
 			mlx->camera->zoom--;
 	}
-	ft_final_offset(mlx);
-	ft_rotate(mlx);
+	ft_final_offset(mlx->map, mlx->camera);
+	ft_rotate(mlx->map, mlx->camera);
 	ft_transform(mlx);
-	ft_draw_map(mlx);
+	ft_draw_map(mlx->wnd, mlx->map);
+	ft_print_menu(mlx);
 	return (0);
 }

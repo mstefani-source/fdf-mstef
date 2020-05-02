@@ -41,45 +41,43 @@ static void		rotate_z(t_dot *dot, double gamma)
 	dot->y = previous_x * sin(gamma) + previous_y * cos(gamma);
 }
 
-void		ft_final_offset(t_mlx *mlx)
+void	ft_rotate(t_map *map, t_camera *camera)
 {
 	int y;
 	int x;
 
 	y = 0;
-	while (y < mlx->my)
+	while (y < map->max_yi)
 	{
 		x = 0;
-		while (x < mlx->mx)
-		{
-			mlx->dots[y][x].x = (mlx->dots[y][x].x0) * mlx->camera->zoom / 64;
-			mlx->dots[y][x].y = (mlx->dots[y][x].y0) * mlx->camera->zoom / 64;
-			if (mlx->dots[y][x].z0 != 0 || mlx->dots[y][x].z != 0)
-			{
-				mlx->dots[y][x].z = mlx->dots[y][x].z0 * mlx->stepz / 32 * mlx->camera->zoom / 64;
-				ft_getmaxmin(mlx, mlx->dots);
-			}
+		while (x < map->max_xi) {
+			rotate_x(&map->dots[y][x], camera->alpha);
+			rotate_y(&map->dots[y][x], camera->beta);
+			rotate_z(&map->dots[y][x], camera->gamma);
 			x++;
 		}
 		y++;
 	}
 }
 
-void	ft_rotate(t_mlx *mlx)
+void		ft_final_offset(t_map *map, t_camera *camera)
 {
 	int y;
 	int x;
 
 	y = 0;
-	while (y < mlx->my)
+	while (y < map->max_yi)
 	{
 		x = 0;
-		while (x < mlx->mx) {
-			rotate_x(&mlx->dots[y][x], mlx->camera->alpha);
-			rotate_y(&mlx->dots[y][x], mlx->camera->beta);
-			rotate_z(&mlx->dots[y][x], mlx->camera->gamma);
+		while (x < map->max_xi)
+		{
+			map->dots[y][x].x = (map->dots[y][x].x0) * camera->zoom / 64;
+			map->dots[y][x].y = (map->dots[y][x].y0) * camera->zoom / 64;
+			if (map->dots[y][x].z0 != 0 || map->dots[y][x].z != 0)
+				map->dots[y][x].z = map->dots[y][x].z0 * map->sz / 32 * camera->zoom / 64;
 			x++;
 		}
 		y++;
 	}
+	ft_getmaxminmid(map, map->dots);
 }

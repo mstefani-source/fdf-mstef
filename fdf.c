@@ -20,12 +20,13 @@ int		main(int argc, char **argv)
 		return (0);
 	mlx = ft_discover_map(argv[1]);
 	mlx->wnd = ft_init_window();
-	mlx->dots = ft_fill_map(mlx, argv[1]);
+	mlx->map->dots = ft_fill_map(mlx->map, argv[1]);
 	ft_catch_order(mlx);
-	ft_final_offset(mlx);
-	ft_rotate(mlx);
+	ft_final_offset(mlx->map, mlx->camera);
+	ft_rotate(mlx->map, mlx->camera);
 	ft_transform(mlx);
-	ft_draw_map(mlx);
+	ft_draw_map(mlx->wnd, mlx->map);
+	ft_print_menu(mlx);
 	mlx_loop(mlx->wnd->ptr);
 	return (0);
 }

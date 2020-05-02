@@ -58,14 +58,14 @@ int		ft_fill_line(char *line, t_dot *dots)
 		}
 		else if (*line == ',')
 		{
-			dots[x].c = ft_readcolor(line);
+			dots[x].color = ft_readcolor(line);
 			line = ft_nexts(line);
 		}
 	}
 	return (0);
 }
 
-t_dot	**ft_fill_map(t_mlx *mlx, char *filename)
+t_dot	**ft_fill_map(t_map *map, char *filename)
 {
 	t_dot	**dots;
 	char 	*line;
@@ -75,14 +75,19 @@ t_dot	**ft_fill_map(t_mlx *mlx, char *filename)
 	if ((fd = open(filename, O_RDONLY)) < 0)
 		exit(1);
 	y = 0;
-	dots = (t_dot **)malloc(sizeof(t_dot *) * mlx->my);
+	dots = (t_dot **)malloc(sizeof(t_dot *) * map->max_yi);
 	while (get_next_line(fd, &line) != 0)
 	{
-		dots[y] = (t_dot *) malloc(sizeof(t_dot) * mlx->mx);
-		ft_fzero(dots[y], y, mlx->mx, mlx);
+		dots[y] = (t_dot *) malloc(sizeof(t_dot) * map->max_xi);
+		ft_fzero(dots[y], y, map->max_xi, map);
 		ft_fill_line(line, dots[y]);
 		y++;
 	}
+	map->sx = WX / (2 * map->max_xi);
+	map->sy = WY / (2 * map->max_yi);
+	map->x0 = 0 - (map->max_xi * map->sx - map->sx) / 4;
+	map->y0 = 0 - (map->max_yi * map->sy - map->sy) / 4;
+	ft_getmaxminmid(map, dots);
 	close(fd);
 return (dots);
 }

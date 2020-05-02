@@ -12,13 +12,13 @@
 
 #include "../fdf.h"
 
-static void	draw_background(t_mlx *mlx)
+static void	draw_background(t_wnd *wnd)
 {
 	int	*image;
 	int	i;
 
-	ft_bzero(mlx->wnd->data_addr, WX * WY * (mlx->wnd->bit_per_pixel / 8));
-	image = (int *)(mlx->wnd->data_addr);
+	ft_bzero(wnd->data_addr, WX * WY * (wnd->bit_per_pixel / 8));
+	image = (int *)(wnd->data_addr);
 	i = 0;
 	while (i < (WY * WX))
 	{
@@ -27,24 +27,24 @@ static void	draw_background(t_mlx *mlx)
 	}
 }
 
-void ft_print_coord(t_mlx *mlx)
+void ft_print_coord(t_wnd *wnd, t_map *map)
 {
 	int y;
 	int x;
 
 	y = 0;
-	while (y < mlx->my)
+	while (y < map->max_yi)
 	{
 		x = 0;
-		while (x < mlx->mx)
+		while (x < map->max_xi)
 		{
-			mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, mlx->dots[y][x].x,	mlx->dots[y][x].y, RED, ft_itoa(mlx->dots[y][x].x));
-			mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, mlx->dots[y][x].x,	mlx->dots[y][x].y + 10, RED, ft_itoa(mlx->dots[y][x].y));
-			mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, mlx->dots[y][x].x,	mlx->dots[y][x].y + 20, RED, ft_itoa(mlx->dots[y][x].z));
+			mlx_string_put(wnd->ptr, wnd->wnd, map->dots[y][x].x, map->dots[y][x].y, RED, ft_itoa(map->dots[y][x].x));
+			mlx_string_put(wnd->ptr, wnd->wnd, map->dots[y][x].x, map->dots[y][x].y + 10, RED, ft_itoa(map->dots[y][x].y));
+			mlx_string_put(wnd->ptr, wnd->wnd, map->dots[y][x].x, map->dots[y][x].y + 20, RED, ft_itoa(map->dots[y][x].z));
 
-			mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, mlx->dots[y][x].x0,mlx->dots[y][x].y0, BLUE, ft_itoa(mlx->dots[y][x].x0));
-			mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, mlx->dots[y][x].x0,mlx->dots[y][x].y0 + 10, BLUE, ft_itoa(mlx->dots[y][x].y0));
-			mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, mlx->dots[y][x].x0,mlx->dots[y][x].y0 + 20, BLUE, ft_itoa(mlx->dots[y][x].z0));
+			mlx_string_put(wnd->ptr, wnd->wnd, map->dots[y][x].x0, map->dots[y][x].y0, BLUE, ft_itoa(map->dots[y][x].x0));
+			mlx_string_put(wnd->ptr, wnd->wnd, map->dots[y][x].x0, map->dots[y][x].y0 + 10, BLUE, ft_itoa(map->dots[y][x].y0));
+			mlx_string_put(wnd->ptr, wnd->wnd, map->dots[y][x].x0, map->dots[y][x].y0 + 20, BLUE, ft_itoa(map->dots[y][x].z0));
 
 			x++;
 		}
@@ -52,45 +52,42 @@ void ft_print_coord(t_mlx *mlx)
 	}
 }
 
-void ft_print_menu(t_mlx *mlx)
+static t_line		set_line(t_dot point_0, t_dot point_1)
 {
-	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 5,  315, RED,  "offset_y = " );
-	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 70, 315, RED,  ft_itoa(mlx->camera->offset_y));
+	t_line			line;
 
-    mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 5,  300, RED,  "mlx->stepz/32 = " );
-	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 100, 300, RED,  ft_itoa(mlx->stepz/32));
-
-	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 5,  330, RED,  "maxz = " );
-	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 50, 330, RED,  ft_itoa(mlx->maxz));
-	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 5,  345, RED,  "minz = " );
-	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 50, 345, RED,  ft_itoa(mlx->minz));
-
-	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 5,  360, RED,  "zoom = " );
-    mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 50, 360, RED,  ft_itoa(mlx->camera->zoom + 36));
-
-    mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 5,  377, RED,  "PROJECTION = " );
-    mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 80, 377, RED,  ft_itoa(mlx->camera->projection));
+	line.x0 = (int)point_0.x;
+	line.y0 = (int)point_0.y;
+	line.x1 = (int)point_1.x;
+	line.y1 = (int)point_1.y;
+	line.dx = ft_abs(line.x1 - line.x0);
+	line.dy = ft_abs(line.y1 - line.y0);
+	line.sx = line.x0 < line.x1 ? 1 : -1;
+	line.sy = line.y0 < line.y1 ? 1 : -1;
+	line.error = line.dx - line.dy;
+	line.color_grad = 0.0;
+	return (line);
 }
 
-void	ft_draw_map(t_mlx *mlx)
+void	ft_draw_map(t_wnd *wnd, t_map *map)
 {
 	int ix;
 	int iy = 0;
 
-	draw_background(mlx);
-	while (iy < mlx->my)
+	draw_background(wnd);
+	while (iy < map->max_yi)
 	{
 		ix = 0;
-		while (ix < mlx->mx - 1)
+		while (ix < map->max_xi)
 		{
- 			ft_draw_line(iy, ix, 0, mlx);
-			ft_draw_line(iy, ix, 1, mlx);
+			if 	(ix < map->max_xi - 1)
+				draw_line(wnd, map->dots[iy][ix], map->dots[iy][ix + 1]);
+			if 	(iy < map->max_yi - 1)
+				draw_line(wnd, map->dots[iy][ix], map->dots[iy + 1][ix]);
 			ix++;
 		}
-		ft_draw_line(iy, ix, 1, mlx);
 		iy++;
 	}
-	mlx_put_image_to_window(mlx->wnd->ptr, mlx->wnd->wnd, mlx->wnd->img, 0, 0);
-	ft_print_menu(mlx);
-	ft_print_coord(mlx);
+	mlx_put_image_to_window(wnd->ptr, wnd->wnd, wnd->img, 0, 0);
+	ft_print_coord(wnd, map);
 }

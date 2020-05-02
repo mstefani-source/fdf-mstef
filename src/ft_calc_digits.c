@@ -26,7 +26,7 @@ char	*ft_goto_next_space(char *line)
 	return (line);
 }
 
-int		ft_calc_digits(char *line, t_mlx *mlx)
+int		ft_calc_digits(char *line, t_map *map)
 {
 	int res;
 	int num;
@@ -51,6 +51,6 @@ int		ft_calc_digits(char *line, t_mlx *mlx)
 		else if (*line == ',')
 			line = ft_goto_next_space(line);
 	}
-	mlx->mx = num;
+	map->max_xi = num;
 	return (num);
 }

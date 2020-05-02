@@ -3,21 +3,22 @@ NAME = fdf
 SRC = fdf.c \
 	src/ft_init_window.c \
 	src/ft_key_win.c \
-	src/ft_draw_map.c \
 	src/ft_discover_map.c \
 	src/ft_catch_order.c \
 	src/ft_set_constants.c \
 	src/ft_calc_digits.c \
+	src/ft_draw_map.c \
+	src/ft_draw_line.c \
 	src/ft_draw.c \
-	src/ft_draw_lines.c \
 	src/ft_plot_line.c \
 	src/ft_put_pixel.c \
 	src/ft_transform.c \
 	src/ft_camera.c \
-	src/ft_print_mlx.c \
 	src/ft_fill_map.c \
 	src/ft_rotate.c \
 	src/ft_mouse.c \
+	src/ft_color.c \
+	src/ft_init.c \
 	gnl/get_next_line.c
 
 INCLUDES = /usr/local/include

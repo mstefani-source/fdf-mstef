@@ -12,16 +12,16 @@
 
 #include "../fdf.h"
 
-void	ft_put_pixel(int x, int y, int color, t_mlx *mlx)
+void	ft_put_pixel(int x, int y, int color, t_wnd *wnd)
 {
 	int i;
 
 	if (x >= 0 && x < WX && y >= 0 && y < WY)
 	{
-		i = x * mlx->wnd->bit_per_pixel / 8 + mlx->wnd->size_line * y;
-		mlx->wnd->data_addr[i + 0] = (color) & 0xFF;
-		mlx->wnd->data_addr[i + 1] = (color >> 8) & 0xFF;
-		mlx->wnd->data_addr[i + 2] = (color >> 16) & 0xFF;
-		mlx->wnd->data_addr[i + 3] = 0;
+		i = x * wnd->bit_per_pixel / 8 + wnd->size_line * y;
+		wnd->data_addr[i + 0] = (color) & 0xFF;
+		wnd->data_addr[i + 1] = (color >> 8) & 0xFF;
+		wnd->data_addr[i + 2] = (color >> 16) & 0xFF;
+		wnd->data_addr[i + 3] = 0;
 	}
 }

@@ -12,27 +12,73 @@
 
 #include "../fdf.h"
 
-void	ft_getmaxmin(t_mlx *mlx, t_dot **dots)
+static void			find_mid_z(t_map *map)
+{
+	int				x;
+	int 			y;
+	t_dot			point;
+
+	y = 0;
+	while (y >= map->max_yi)
+	{
+		x = 0;
+		while (x >= map->max_xi)
+		{
+			point = map->dots[y][x];
+			if (abs((int)((map->max_z + map->min_z) / 2) - point.z) < map->min_diff_mid_z)
+			{
+				map->min_diff_mid_z = abs((int)((map->max_z + map->min_z) / 2) - point.z);
+				map->mid_z = point.z;
+			}
+		x++;
+		}
+	}
+	if (map->mid_z == map->min_z)
+		map->mid_z = map->max_z;
+}
+
+void setcolor(t_map *map, t_dot **dots) {
+	int x;
+	int y;
+
+	y = 0;
+	while (y < map->max_yi) {
+		x = 0;
+		while (x < map->max_xi) {
+			dots[y][x].color = calculate_color(map, dots[y][x]);
+			x++;
+		}
+		y++;
+	}
+}
+
+
+void	ft_getmaxminmid(t_map *map, t_dot **dots)
 {
 	int x;
 	int y;
 
 	y = 0;
-	mlx->minz = 0;
-	mlx->maxz = 0;
-	while (y < mlx->my)
+	map->max_z = 0;
+	map->min_z = 0;
+	while (y < map->max_yi)
 	{
 		x = 0;
-		while (x < mlx->mx)
+		while (x < map->max_xi)
 		{
-		if (dots[y][x].z > mlx->maxz)
-			mlx->maxz = dots[y][x].z;
-		if (dots[y][x].z < mlx->minz)
-			mlx->minz = dots[y][x].z;
+		if (dots[y][x].z > map->max_z)
+			map->max_z = dots[y][x].z;
+		if (dots[y][x].z < map->min_z)
+			map->min_z = dots[y][x].z;
+	//	dots[y][x].color = calculate_color(map, dots[y][x]);
 		x++;
 		}
 	y++;
 	}
+//	find_mid_z(map);
+//	map->mid_z = ft_abs((map->max_z - map->min_z) / 2 );
+	map->mid_z = (map->max_z - map->min_z) / 2;
+	setcolor(map, dots);
 }
 
 t_mlx		*ft_discover_map(char *filename)
@@ -43,17 +89,19 @@ t_mlx		*ft_discover_map(char *filename)
 
 	if (!(mlx = malloc(sizeof(t_mlx))))
 		exit (2);
-	mlx->my = 0;
-	mlx->mx = 0;
+	ft_set_constants(mlx);
 	if ((fd = open(filename, O_RDONLY)) < 0)
 		exit(1);
 	while (get_next_line(fd, &line) != 0)
 	{
-		ft_calc_digits(line, mlx);
-		mlx->my++;
+		ft_calc_digits(line, mlx->map);
+		mlx->map->max_yi++;
 	}
 	free(line);
 	close(fd);
-	ft_set_constants(mlx);
+	mlx->map->sx = WX / (2 * mlx->map->max_xi);
+	mlx->map->sy = WY / (2 * mlx->map->max_yi);
+	mlx->map->x0 = 0 - (mlx->map->max_xi * mlx->map->sx - mlx->map->sx) / 4;
+	mlx->map->y0 = 0 - (mlx->map->max_yi * mlx->map->sy - mlx->map->sy) / 4;
 	return (mlx);
 }

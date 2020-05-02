@@ -12,6 +12,31 @@
 
 #include "../fdf.h"
 
+void ft_print_menu(t_mlx *mlx)
+{
+    mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 5,  300, RED,  "map->sz/32 = " );
+	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 100, 300, RED,  ft_itoa(mlx->map->sz/32));
+
+	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 5,  315, RED,  "offset_y = " );
+	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 70, 315, RED,  ft_itoa(mlx->camera->offset_y));
+
+	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 5,  330, RED,  "maxz = " );
+	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 50, 330, RED,  ft_itoa(mlx->map->max_z));
+	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 5,  345, RED,  "minz = " );
+	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 50, 345, RED,  ft_itoa(mlx->map->min_z));
+	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 5,  360, RED,  "midz = " );
+	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 50, 360, RED,  ft_itoa(mlx->map->mid_z));
+
+
+	mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 5,  375, RED,  "zoom = " );
+    mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 50, 375, RED,  ft_itoa(mlx->camera->zoom + 36));
+
+    mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 5,  390, RED,  "PROJECTION = " );
+    mlx_string_put(mlx->wnd->ptr, mlx->wnd->wnd, 80, 390, RED,  ft_itoa(mlx->camera->projection));
+
+
+}
+
 void  	ft_set_angle(t_mlx *mlx, int key)
 {
 	if (key == ZROTATE1)
@@ -47,10 +72,10 @@ int		ft_key_win(int key, t_mlx *mlx)
 	else if (key == PARALLEL_KEY)
 		mlx->camera->projection = PARALLEL;
 	else if (key == RIZE_KEY) {
-		mlx->stepz += STEPZ;
+		mlx->map->sz += STEPZ;
 	}
 	else if (key == FALL_KEY) {
-		mlx->stepz -= STEPZ;
+		mlx->map->sz -= STEPZ;
 	}
 
 	else if (key == XROTATE1 || key == XROTATE2 \
@@ -61,9 +86,10 @@ int		ft_key_win(int key, t_mlx *mlx)
 	if (key == CLEAR_WINDOW) {
 		mlx_clear_window(mlx->wnd->ptr, mlx->wnd->wnd);
 	}
-	ft_final_offset(mlx);
-	ft_rotate(mlx);
+	ft_final_offset(mlx->map, mlx->camera);
+	ft_rotate(mlx->map, mlx->camera);
 	ft_transform(mlx);
-	ft_draw_map(mlx);
+	ft_draw_map(mlx->wnd, mlx->map);
+	ft_print_menu(mlx);
 	return (0);
 }

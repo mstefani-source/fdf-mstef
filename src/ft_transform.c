@@ -31,12 +31,12 @@ void	ft_transform(t_mlx* mlx)
 	y = 0;
 	if (mlx->camera->projection == ISO)
 	{
-	while (y < mlx->my)
+	while (y < mlx->map->max_yi)
 	{
 		x = 0;
-		while (x < mlx->mx)
+		while (x < mlx->map->max_xi)
 		{
-			ft_iso(&mlx->dots[y][x].x, &mlx->dots[y][x].y, mlx->dots[y][x].z);
+			ft_iso(&mlx->map->dots[y][x].x, &mlx->map->dots[y][x].y, mlx->map->dots[y][x].z);
 			x++;
 		}
 		y++;
