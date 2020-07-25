@@ -70,13 +70,10 @@ void	ft_getmaxminmid(t_map *map, t_dot **dots)
 			map->max_z = dots[y][x].z;
 		if (dots[y][x].z < map->min_z)
 			map->min_z = dots[y][x].z;
-	//	dots[y][x].color = calculate_color(map, dots[y][x]);
 		x++;
 		}
 	y++;
 	}
-//	find_mid_z(map);
-//	map->mid_z = ft_abs((map->max_z - map->min_z) / 2 );
 	map->mid_z = (map->max_z - map->min_z) / 2;
 	setcolor(map, dots);
 }

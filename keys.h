@@ -10,10 +10,10 @@
 #define ARROW_UP 65362
 #define ARROW_DOWN 65364
 #define CLEAR_WINDOW 1738
-#define ISO_KEY 1755
-#define PARALLEL_KEY 1754
-#define RIZE_KEY 1728
-#define FALL_KEY 1730
+#define ISO_KEY 105
+#define PARALLEL_KEY 112
+#define RIZE_KEY 46
+#define FALL_KEY 44
 #define XROTATE1 65430
 #define XROTATE2 65432
 #define YROTATE1 65431

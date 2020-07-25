@@ -34,41 +34,6 @@ static t_line		set_line(t_dot point_0, t_dot point_1)
 	return (line);
 }
 
-//void		img_pixel_put(t_map *img, double x, double y, int color)
-//{
-//	if (x >= MENU_WIDTH && x < WIDTH && y >= 0 && y < HEIGHT)
-//		*(int *)(img->ptr + (int)(index_matr(y, x, WIDTH) * img->bpp)) = color;
-//}
-
-//void	ft_draw(int y2, int x2, t_mlx *mlx)
-//{
-//	int dx;
-//	int dy;
-//	int err;
-//	int e2;
-//
-//	dx = ft_abs(x2 - mlx->dot->x);
-//	dy = ft_abs(y2 - mlx->dot->y);
-//	err = dx - dy;
-//	while ((mlx->dot->x != x2) || (mlx->dot->y != y2))
-//	{
-//		mlx->dot->color = ft_calc_pixelcolor(x2, y2, mlx);
-//		ft_put_pixel(mlx->dot->x, mlx->dot->y, mlx->dot->color, mlx);
-//		e2 = 2 * err;
-//		if (e2 > -dy)
-//		{
-//			err -= dy;
-//			mlx->dot->x += STEP(mlx->dot->x, x2);
-//		}
-//		if (e2 < dx)
-//		{
-//			err += dx;
-//			mlx->dot->y += STEP(mlx->dot->y, y2);
-//		}
-//	}
-//	ft_put_pixel(mlx->dot->x, mlx->dot->y, mlx->dot->color, mlx);
-//}
-
 int				get_line_color(int color1, int color2, double color_grad)
 {
 	int			red;

@@ -29,7 +29,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 $(NAME): $(LIBOBJ)
 		make -C ./libft
-		gcc $(CFLAGS) $(LIBOBJ) -L./libft -I $(INCLUDES) -lXext -lX11 -lmlx -lm -lft -o $(NAME)
+		gcc $(CFLAGS) $(LIBOBJ) -L./libft -I $(INCLUDES) -lXext -lbsd -lX11 -lmlx -lm -lft -o $(NAME)
 %.o:%.c
 		gcc -MD -c $<  -o $@
 
@@ -43,5 +43,6 @@ clean:
 fclean: clean
 	make -C ./libft fclean
 	-rm -f $(NAME)
+	-rm -f src/*.d
 
 re: fclean all
