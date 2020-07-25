@@ -27,31 +27,6 @@ static void	draw_background(t_wnd *wnd)
 	}
 }
 
-void ft_print_coord(t_wnd *wnd, t_map *map)
-{
-	int y;
-	int x;
-
-	y = 0;
-	while (y < map->max_yi)
-	{
-		x = 0;
-		while (x < map->max_xi)
-		{
-			mlx_string_put(wnd->ptr, wnd->wnd, map->dots[y][x].x, map->dots[y][x].y, RED, ft_itoa(map->dots[y][x].x));
-			mlx_string_put(wnd->ptr, wnd->wnd, map->dots[y][x].x, map->dots[y][x].y + 10, RED, ft_itoa(map->dots[y][x].y));
-			mlx_string_put(wnd->ptr, wnd->wnd, map->dots[y][x].x, map->dots[y][x].y + 20, RED, ft_itoa(map->dots[y][x].z));
-
-			mlx_string_put(wnd->ptr, wnd->wnd, map->dots[y][x].x0, map->dots[y][x].y0, BLUE, ft_itoa(map->dots[y][x].x0));
-			mlx_string_put(wnd->ptr, wnd->wnd, map->dots[y][x].x0, map->dots[y][x].y0 + 10, BLUE, ft_itoa(map->dots[y][x].y0));
-			mlx_string_put(wnd->ptr, wnd->wnd, map->dots[y][x].x0, map->dots[y][x].y0 + 20, BLUE, ft_itoa(map->dots[y][x].z0));
-
-			x++;
-		}
-		y++;
-	}
-}
-
 static t_line		set_line(t_dot point_0, t_dot point_1)
 {
 	t_line			line;
@@ -89,5 +64,4 @@ void	ft_draw_map(t_wnd *wnd, t_map *map)
 		iy++;
 	}
 	mlx_put_image_to_window(wnd->ptr, wnd->wnd, wnd->img, 0, 0);
-	ft_print_coord(wnd, map);
 }

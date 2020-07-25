@@ -1,24 +1,33 @@
-//
-// Created by mstefani on 06.04.20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/03 20:29:42 by mstefani          #+#    #+#             */
+/*   Updated: 2020/04/10 01:22:08 by mstefani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef FDF_KEYS_H
 #define FDF_KEYS_H
 
-#define ARROW_LEFT 65361
-#define ARROW_RIGHT 65363
-#define ARROW_UP 65362
-#define ARROW_DOWN 65364
-#define CLEAR_WINDOW 1738
-#define ISO_KEY 105
-#define PARALLEL_KEY 112
-#define RIZE_KEY 46
-#define FALL_KEY 44
-#define XROTATE1 65430
-#define XROTATE2 65432
-#define YROTATE1 65431
-#define YROTATE2 65433
-#define ZROTATE1 65436
-#define ZROTATE2 65434
+#define ESC_KEY 53
+#define LEFT 123
+#define RIGHT 124
+#define UP 126
+#define DOWN 125
+#define CLEAR_WINDOW 12
+#define ISO_KEY 34
+#define PARALLEL_KEY 35
+#define RIZE_KEY 47
+#define FALL_KEY 43
+#define X1 91
+#define X2 84
+#define Y1 86
+#define Y2 88
+#define Z1 83
+#define Z2 92
 
 #endif //FDF_KEYS_H

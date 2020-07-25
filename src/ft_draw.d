@@ -1,4 +1,4 @@
-gnl/get_next_line.o: gnl/get_next_line.c gnl/../fdf.h \
+src/ft_draw.o: src/ft_draw.c src/../fdf.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/fcntl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/sys/fcntl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/sys/_types.h \
@@ -128,7 +128,7 @@ gnl/get_next_line.o: gnl/get_next_line.c gnl/../fdf.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/sys/_select.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/sys/_types/_uuid_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/gethostuuid.h \
-  gnl/../libft.h \
+  src/../libft.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/string.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/strings.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/secure/_strings.h \
@@ -140,4 +140,4 @@ gnl/get_next_line.o: gnl/get_next_line.c gnl/../fdf.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/i386/_limits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/sys/syslimits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/math.h \
-  gnl/../gnl/get_next_line.h gnl/../keys.h
+  src/../gnl/get_next_line.h src/../gnl/../fdf.h src/../keys.h

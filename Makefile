@@ -8,7 +8,6 @@ SRC = fdf.c \
 	src/ft_set_constants.c \
 	src/ft_calc_digits.c \
 	src/ft_draw_map.c \
-	src/ft_draw_line.c \
 	src/ft_draw.c \
 	src/ft_plot_line.c \
 	src/ft_put_pixel.c \
@@ -26,11 +25,12 @@ INCLUDES = /usr/local/include
 LIBOBJ = $(SRC:.c=.o)
 
 CFLAGS = -Wall -Werror -Wextra
+GLFLAGS = -lm -lmlx -framework OpenGL -framework AppKit
 
 $(NAME): $(LIBOBJ)
 		make -C ./libft
-		gcc $(CFLAGS) $(LIBOBJ) -L./libft -I $(INCLUDES) -lXext -lbsd -lX11 -lmlx -lm -lft -o $(NAME)
-%.o:%.c
+		gcc $(CFLAGS) $(LIBOBJ) -L./libft -I $(INCLUDES) $(GLFLAGS) -lft -o $(NAME)
+%.o:%.c fdf.h keys.h
 		gcc -MD -c $<  -o $@
 
 all: $(NAME)
