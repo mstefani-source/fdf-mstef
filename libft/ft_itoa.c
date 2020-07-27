@@ -6,7 +6,7 @@
 /*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:30:23 by mstefani          #+#    #+#             */
-/*   Updated: 2019/09/22 16:10:49 by mstefani         ###   ########.fr       */
+/*   Updated: 2020/07/26 20:59:25 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,29 @@
 
 char	*ft_itoa(int n)
 {
-	int				len;
-	char			*res;
-	int				dig;
+	int		len;
+	char	*res;
+	char	*fin;
 
-	dig = n;
-	len = ft_leni(dig);
+	len = ft_leni(n);
 	res = (char *)malloc(sizeof(char) * (len + 1));
 	if (res == NULL)
 		return (0);
-	res[len] = '\0';
-	len--;
+	res[len--] = '\0';
 	if (n < 0)
 	{
 		res[0] = '-';
-		dig = -dig;
+		n = -n;
 	}
 	if (n / 1 == 0)
 		res[0] = '0';
-	while (dig != 0)
+	while (n != 0)
 	{
-		res[len] = (dig % 10) + '0';
-		dig = dig / 10;
+		res[len] = (n % 10) + '0';
+		n = n / 10;
 		len--;
 	}
-	return (res);
+	fin = res;
+	free(res);
+	return (fin);
 }

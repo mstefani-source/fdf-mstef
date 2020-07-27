@@ -6,7 +6,7 @@
 /*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:40:47 by mstefani          #+#    #+#             */
-/*   Updated: 2020/02/05 18:40:55 by mstefani         ###   ########.fr       */
+/*   Updated: 2020/07/25 20:22:46 by skale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int		ft_plot_line(int x2, int y2, t_mlx *mlx)
 	err = dx - dy;
 	while ((mlx->dot->x != x2) || (mlx->dot->y != y2))
 	{
-		mlx_pixel_put(mlx->wnd->ptr, mlx->wnd->wnd, mlx->dot->x, mlx->dot->y, mlx->dot->color);
+		mlx_pixel_put(mlx->wnd->ptr, mlx->wnd->wnd, mlx->dot->x, \
+				mlx->dot->y, mlx->dot->color);
 		e2 = 2 * err;
 		if (e2 > -dy)
 		{

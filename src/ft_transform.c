@@ -6,7 +6,7 @@
 /*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 16:56:33 by mstefani          #+#    #+#             */
-/*   Updated: 2020/02/25 16:56:36 by mstefani         ###   ########.fr       */
+/*   Updated: 2020/07/25 20:57:18 by skale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_iso(int *x, int *y, int z)
 	*y = -z + (previous_x + previous_y) * sin(0.523599);
 }
 
-void	ft_transform(t_mlx* mlx)
+void	ft_transform(t_mlx *mlx)
 {
 	int y;
 	int x;
@@ -31,15 +31,16 @@ void	ft_transform(t_mlx* mlx)
 	y = 0;
 	if (mlx->camera->projection == ISO)
 	{
-	while (y < mlx->map->max_yi)
-	{
-		x = 0;
-		while (x < mlx->map->max_xi)
+		while (y < mlx->map->max_yi)
 		{
-			ft_iso(&mlx->map->dots[y][x].x, &mlx->map->dots[y][x].y, mlx->map->dots[y][x].z);
-			x++;
+			x = 0;
+			while (x < mlx->map->max_xi)
+			{
+				ft_iso(&mlx->map->dots[y][x].x, &mlx->map->dots[y][x].y, \
+						mlx->map->dots[y][x].z);
+				x++;
+			}
+			y++;
 		}
-		y++;
-	}
 	}
 }

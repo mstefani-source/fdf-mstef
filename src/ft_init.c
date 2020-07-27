@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_init.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skale <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 20:43:06 by skale             #+#    #+#             */
+/*   Updated: 2020/07/25 20:45:53 by skale            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
 
-t_line		*line_init()
+t_line		*line_init(void)
 {
 	t_line *line;
 
@@ -8,13 +20,13 @@ t_line		*line_init()
 		exit(2);
 	line->dx = 0;
 	line->dy = 0;
-	line->dz = 0;
 	return (line);
 }
 
-t_dot		*dot_init()
+t_dot		*dot_init(void)
 {
 	t_dot	*dot;
+
 	if (!(dot = (t_dot *)ft_memalloc(sizeof(t_dot))))
 		exit(2);
 	dot->x = 0;
@@ -26,7 +38,7 @@ t_dot		*dot_init()
 	return (dot);
 }
 
-t_camera	*camera_init()
+t_camera	*camera_init(void)
 {
 	t_camera *camera;
 
@@ -42,7 +54,7 @@ t_camera	*camera_init()
 	return (camera);
 }
 
-t_map		*map_init()
+t_map		*map_init(void)
 {
 	t_map	*map;
 
@@ -53,7 +65,6 @@ t_map		*map_init()
 	map->max_z = 0;
 	map->min_z = 0;
 	map->mid_z = 0;
-	map->min_diff_mid_z = 0;
 	map->sz = 32;
 	map->color_min = COLOR_DEFAULT_MIN;
 	map->color_max = COLOR_DEFAULT_MAX;

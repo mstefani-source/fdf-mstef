@@ -15,7 +15,7 @@ NAME = libft.a
 HEADERS = includes/
 
 SRC = ft_atoi.c \
-	  	ft_atoi_base.c \
+        ft_atoi_base.c \
 		ft_bzero.c \
 		ft_factorial.c \
 		ft_isalnum.c \
@@ -94,7 +94,7 @@ $(NAME): $(OBJ) $(SRC) ../libft.h
 	ar rc $(NAME) $?
 	ranlib $(NAME) 
 
-%.o:%.c
+%.o:%.c ../libft.h
 	gcc $(CFLAGS) $< -c -o $@
 
 clean:

@@ -55,7 +55,7 @@ int					ft_isascii(int c);
 int					ft_isupper(int c);
 int					ft_islower(int c);
 int					ft_atoi(const char *st);
-int					ft_atoi_base(char *s, int rate);
+int					ft_atoi_base(const char *s, int rate);
 void				ft_striter(char *s, void (*f)(char *));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 void				ft_strclr(char *s);

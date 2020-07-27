@@ -6,7 +6,7 @@
 /*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 17:58:23 by mstefani          #+#    #+#             */
-/*   Updated: 2020/02/03 15:54:45 by mstefani         ###   ########.fr       */
+/*   Updated: 2020/07/26 12:28:28 by skale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int		main(int argc, char **argv)
 	t_mlx	*mlx;
 
 	if (argc != 2)
+	{
+		write(1, "Need one parameter\n", 19);
 		return (0);
+	}
 	mlx = ft_discover_map(argv[1]);
 	mlx->wnd = ft_init_window();
 	mlx->map->dots = ft_fill_map(mlx->map, argv[1]);

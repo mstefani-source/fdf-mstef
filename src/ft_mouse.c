@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_mouse.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skale <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 20:58:07 by skale             #+#    #+#             */
+/*   Updated: 2020/07/25 20:59:50 by skale            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
 
 int		ft_mouse_move(int x, int y, t_mlx *mlx)
@@ -29,12 +41,12 @@ int		ft_mouse_pressed(int buttom, int x, int y, t_mlx *mlx)
 	}
 	if (buttom == 5 && INSIDE(x, y))
 	{
-		if(mlx->camera->zoom < 64)
+		if (mlx->camera->zoom < 64)
 			mlx->camera->zoom++;
 	}
 	if (buttom == 4 && INSIDE(x, y))
 	{
-		if(mlx->camera->zoom > 4)
+		if (mlx->camera->zoom > 4)
 			mlx->camera->zoom--;
 	}
 	ft_final_offset(mlx->map, mlx->camera);

@@ -6,7 +6,7 @@
 /*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 20:27:01 by mstefani          #+#    #+#             */
-/*   Updated: 2020/02/10 20:31:52 by mstefani         ###   ########.fr       */
+/*   Updated: 2020/07/26 16:52:15 by skale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,28 @@
 
 char	*ft_goto_next_digit(char *line)
 {
-	while (!ft_isdigit(*line) && *line != '\0')
-		line++;
-	return (line);
-}
-
-char	*ft_goto_next_space(char *line)
-{
-	while (*line != ' ' && *line != '\0')
+	while (!ft_isdigit(*line) && *line != '\0' && *line != '\n')
 		line++;
 	return (line);
 }
 
 int		ft_calc_digits(char *line, t_map *map)
 {
-	int res;
 	int num;
 
-	res = 0;
 	num = 1;
 	line = ft_goto_next_digit(line);
-	while (*line)
+	while (*line != '\n' && *line != '\0')
 	{
-		if (*line >= '0' && *line <= '9')
-		{
-			res *= 10;
-			res = res + (*line - '0');
-			line++;
-		}
-		else if (*line == ' ')
-		{
-			line = ft_goto_next_digit(line);
-			res = 0;
-			num++;
-		}
-		else if (*line == ',')
-			line = ft_goto_next_space(line);
+        if (*line != ' ')
+            line++;
+        else
+        {
+            line = ft_goto_next_digit(line);
+            num++;
+        }
 	}
-	map->max_xi = num;
+	if (map->max_xi < num)
+		map->max_xi = num;
 	return (num);
 }

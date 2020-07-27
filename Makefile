@@ -38,7 +38,8 @@ all: $(NAME)
 
 clean:
 	make -C ./libft clean
-	rm -rf $(LIBOBJ)
+	-rm -rf $(LIBOBJ)
+	-rm -f src/*.d
 
 fclean: clean
 	make -C ./libft fclean
