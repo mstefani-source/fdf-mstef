@@ -4,3 +4,4 @@
 *.swp
 /fdf
 /.gitignore
+.idea/*.*

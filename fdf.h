@@ -13,7 +13,7 @@
 #ifndef FDF_FDF_H
 # define FDF_FDF_H
 # include <fcntl.h>
-# include <mlx.h>
+# include "minilibx/mlx.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <zconf.h>
@@ -21,8 +21,8 @@
 # include <math.h>
 # include "gnl/get_next_line.h"
 # include "keys.h"
-# define WX 1920
-# define WY 1080
+# define WX 800
+# define WY 600
 # define RED 0xff0000
 # define BLUE 0x0000ff
 # define BACKGROUND 0x222222

@@ -20,16 +20,27 @@ SRC = fdf.c \
 	src/ft_init.c \
 	gnl/get_next_line.c
 
-INCLUDES = /usr/local/include
+INCLUDES = -I libft -I include
 
 LIBOBJ = $(SRC:.c=.o)
 
 CFLAGS = -Wall -Werror -Wextra
-GLFLAGS = -lm -lmlx -framework OpenGL -framework AppKit
+
+ifeq ($(OS),Windows_NT)
+		detected_OS = Windows
+else
+		detected_OS = $(shell uname)
+endif
+ifeq ($(detected_OS),Linux)
+		GLFLAGS = -lm -lmlx -lft -lXext -lbsd -lX11
+endif
+ifeq ($(detected_OS),Darwin)
+		GLFLAGS = -lm -lmlx -lft -framework OpenGL -framework AppKit
+endif
 
 $(NAME): $(LIBOBJ)
 		make -C ./libft
-		gcc $(CFLAGS) $(LIBOBJ) -L./libft -I $(INCLUDES) $(GLFLAGS) -lft -o $(NAME)
+		gcc $(CFLAGS) $(LIBOBJ) -L libft -L ./minilibx $(INCLUDES) $(GLFLAGS) -o $(NAME)
 %.o:%.c fdf.h keys.h
 		gcc -MD -c $<  -o $@
 

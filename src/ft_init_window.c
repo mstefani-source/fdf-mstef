@@ -12,18 +12,6 @@
 
 #include "../fdf.h"
 
-
-
-
-
-
-
-
-
-
-
-
-
 t_wnd		*ft_init_window(void)
 {
 	t_wnd	*wnd;
@@ -32,7 +20,7 @@ t_wnd		*ft_init_window(void)
 		exit(2);
 	if (!(wnd->ptr = mlx_init()))
 		exit(1);
-	if (!(wnd->wnd = mlx_new_window(wnd->ptr, WX, WY, "Skale&Mstefani_FdF")))
+	if (!(wnd->wnd = mlx_new_window(wnd->ptr, WX, WY, "mstefani_FdF")))
 		exit(1);
 	if (!(wnd->img = mlx_new_image(wnd->ptr, WX, WY)))
 		exit(1);
