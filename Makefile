@@ -40,7 +40,7 @@ endif
 
 $(NAME): $(LIBOBJ)
 		make -C ./libft
-		gcc $(CFLAGS) $(LIBOBJ) -L libft -L ./minilibx $(INCLUDES) $(GLFLAGS) -o $(NAME)
+		gcc $(CFLAGS) $(LIBOBJ) -L libft -L minilibx $(INCLUDES) $(GLFLAGS) -o $(NAME)
 %.o:%.c fdf.h keys.h
 		gcc -MD -c $<  -o $@
 
