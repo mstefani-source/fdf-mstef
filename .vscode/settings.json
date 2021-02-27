@@ -1,0 +1,8 @@
+{
+    "python.pythonPath": "/home/mstefani/anaconda3/bin/python",
+    "terminal.integrated.automationShell.linux": "/usr/bin/bash",
+    "terminal.integrated.shellArgs.linux": [
+        "-l"
+    ],
+    "terminal.integrated.allowMnemonics": true
+}
