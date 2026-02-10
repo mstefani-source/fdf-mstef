@@ -23,18 +23,18 @@ extern struct s_col_name mlx_col_name[];
 
 
 
-char	*mlx_int_get_line(char *ptr,int *pos,int size)
+char	*mlx_int_get_line(void *ptr,int *pos,int size)
 {
   int	pos2;
   int	pos3;
   int	pos4;
 
-  if ((pos2 = mlx_int_str_str(ptr+*pos,"\"",size-*pos))==-1)
+  if ((pos2 = mlx_int_str_str((char *)ptr + *pos,"\"",size-*pos))==-1)
     return ((char *)0);
   if ((pos3 = mlx_int_str_str(ptr+*pos+pos2+1,"\"",size-*pos-pos2-1))==-1)
     return ((char *)0);
-  *(ptr+*pos+pos2) = 0;
-  *(ptr+*pos+pos2+1+pos3) = 0;
+  *((char *)ptr + *pos + pos2) = 0;
+  *((char *)ptr + *pos + pos2 + 1 + pos3) = 0;
   pos4 = *pos+pos2+1;
   *pos += pos2+pos3+2;
   return (ptr+pos4);
@@ -42,14 +42,14 @@ char	*mlx_int_get_line(char *ptr,int *pos,int size)
 
 
 
-char	*mlx_int_static_line(char **xpm_data,int *pos,int size)
+char	*mlx_int_static_line(void *xpm_data,int *pos,int size)
 {
   static char	*copy = 0;
   static int	len = 0;
   int		len2;
   char		*str;
 
-  str = xpm_data[(*pos)++];
+  str = ((char **)xpm_data)[(*pos)++];
   if ((len2 = strlen(str))>len)
     {
       if (copy)
@@ -113,7 +113,7 @@ int	mlx_int_xpm_set_pixel(t_img *img, char *data, int opp, int col, int x)
 }
 
 
-void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
+void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)(void *, int *, int))
 {
   int	pos;
   char	*line;
@@ -294,7 +294,7 @@ void	*mlx_xpm_file_to_image(t_xvar *xvar,char *file,int *width,int *height)
       return ((void *)0);
     }
   mlx_int_file_get_rid_comment(ptr, size);
-  if (img = mlx_int_parse_xpm(xvar,ptr,size,mlx_int_get_line))
+  if (img = mlx_int_parse_xpm(xvar,ptr,size,(char *(*)(void *, int *, int))mlx_int_get_line))
     {
       *width = img->width;
       *height = img->height;
